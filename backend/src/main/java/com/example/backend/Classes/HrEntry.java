@@ -1,5 +1,6 @@
 package com.example.backend.Classes;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -24,6 +25,11 @@ public class HrEntry {
     @Column(name = "evaluation")
     private int evaluation;
 
+    @ManyToOne
+    @JsonManagedReference
+    private User user;
+
+    public HrEntry() {}
 
     public HrEntry(Long id, Date createdAt, int value, int evaluation) {
         this.id = id;

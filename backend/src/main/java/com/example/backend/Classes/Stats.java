@@ -35,6 +35,8 @@ public class Stats {
         this.avg_mood = avg_mood;
     }
 
+    public Stats() {}
+
     public Long getId() {
         return id;
     }

@@ -1,5 +1,6 @@
 package com.example.backend.Classes;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -29,6 +30,10 @@ public class Subject {
     @Column(name = "ended_at", nullable = false, updatable = false)
     private Date endedAt;
 
+    @ManyToOne
+    @JsonManagedReference
+    private Subclass class_subjects;
+
 
     public Subject(Long id, String name, int day, Date startedAt, Date endedAt) {
         this.id = id;
@@ -37,6 +42,8 @@ public class Subject {
         this.startedAt = startedAt;
         this.endedAt = endedAt;
     }
+
+    public Subject() {}
 
     public Long getId() {
         return id;
