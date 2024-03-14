@@ -6,6 +6,7 @@ import com.example.backend.Classes.MyUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,22 @@ public class UserService {
                 list_of_DTO.add(user.convertUserToUserDTO());
             }
             return list_of_DTO;
+    }
+
+    public int getEvaluationAVG(Long id, int flag)
+    {
+        switch (flag)
+        {
+            case 0:
+                LocalDate date1 = LocalDate.now().minusDays(1);
+                return userRepository.getEvaluation(id,date1);
+            case 1:
+                LocalDate date2 = LocalDate.now().minusMonths(1);
+                return userRepository.getEvaluation(id,date2);
+            default:
+                LocalDate date3 = LocalDate.now().minusYears(1);
+                return userRepository.getEvaluation(id,date3);
+        }
     }
 
     public Optional<Object> getByEmail(String userEmail) {
