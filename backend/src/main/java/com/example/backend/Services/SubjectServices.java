@@ -13,6 +13,6 @@ public class SubjectServices {
     @Autowired
     SubjectRepository subjectRepository;
     public List<HREntryDTO> getAllEntries(String name) {
-        return subjectRepository.getAllEntries(name);
+        return null;
     }
 }
