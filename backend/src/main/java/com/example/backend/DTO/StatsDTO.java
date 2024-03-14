@@ -1,17 +1,13 @@
-package com.example.backend.Classes;
+package com.example.backend.DTO;
 
-
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
-@Entity
-public class Stats {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class StatsDTO {
 
     @Column(name = "avg_pulse_min")
     private float avg_pulse_min;
@@ -27,22 +23,14 @@ public class Stats {
     @Column(name= "avg_mood")
     private float avg_mood;
 
-    public Stats(float avg_pulse_min, float avg_pulse_max, Date date, float avg_mood) {
+
+    public StatsDTO(float avg_pulse_min, float avg_pulse_max, Date date, float avg_mood) {
         this.avg_pulse_min = avg_pulse_min;
         this.avg_pulse_max = avg_pulse_max;
         this.date = date;
         this.avg_mood = avg_mood;
     }
 
-    public Stats() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public float getAvg_pulse_min() {
         return avg_pulse_min;
@@ -78,9 +66,8 @@ public class Stats {
 
     @Override
     public String toString() {
-        return "Stats{" +
-                "id=" + id +
-                ", avg_pulse_min=" + avg_pulse_min +
+        return "StatsDTO{" +
+                "avg_pulse_min=" + avg_pulse_min +
                 ", avg_pulse_max=" + avg_pulse_max +
                 ", date=" + date +
                 ", avg_mood=" + avg_mood +
