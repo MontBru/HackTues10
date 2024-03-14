@@ -6,7 +6,7 @@
 //  Variables
 const int PulseWire = 0;       // PulseSensor PURPLE WIRE connected to ANALOG PIN 0
 const int LED = LED_BUILTIN;          // The on-board Arduino LED, close to PIN 13.
-int Threshold = 60;           // Determine which Signal to "count as a beat" and which to ignore.
+int Threshold = 25;           // Determine which Signal to "count as a beat" and which to ignore.
 
 char ssid[] = "Stefan";        // your network SSID (name)
 char pass[] = "qwertyuiop";    // your network password (use for WPA, or use as key for WEP)
@@ -16,7 +16,8 @@ int status = WL_IDLE_STATUS;
 char server[] = "www.google.com";
 WiFiClient client;
 
-void setup() {   
+void setup() { 
+  pinMode(PulseWire, INPUT);  
   delay(1000);
   Serial.begin(115200);          // For Serial Monitor
   Serial.println("hello");
@@ -38,7 +39,7 @@ void setup() {
     Serial.print("Attempting to connect to SSID: ");
     Serial.println(ssid);
     status = WiFi.begin(ssid);
-    delay(10000);
+    delay(1000);
   }
   Serial.println("Connected to WiFi");
   printWifiStatus();
@@ -46,22 +47,20 @@ void setup() {
   Serial.println("\nStarting connection to server...");
 }
 
-bool prev_state = false;
 int beats = 0, prev_time = 0, Signal;
 
 void loop() {
 
   Signal = analogRead(PulseWire);
-  if(Signal > Threshold && prev_state == false ){
+  Serial.println(Signal);
+  if(Signal > Threshold){
     digitalWrite(LED,HIGH);
-    prev_state = true;
+    delay(100);
     beats++;
   } else {
     digitalWrite(LED,LOW);
-    prev_state = false;
   }
 
-  delay(20);
   int cur = millis();
 
   if(cur - prev_time >= 5000)
