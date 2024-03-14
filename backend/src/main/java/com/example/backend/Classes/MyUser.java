@@ -48,7 +48,11 @@ public class MyUser
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
     private List<HrEntry> hrEntries;
 
-    @OneToMany(mappedBy="user_class", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_class_table",
+            joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "class_id",referencedColumnName = "id")
+    )
     private List<Subclass> classes;
 
     public MyUser( String name, String email, String password, int device_id, int role) {
@@ -167,4 +171,5 @@ public class MyUser
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
+
 }

@@ -37,13 +37,13 @@ public class UserService {
         {
             case 0:
                 LocalDate date1 = LocalDate.now().minusDays(1);
-                return userRepository.getEvaluation(id,date1);
+                return userRepository.getEvaluationAVGDate(id,date1);
             case 1:
                 LocalDate date2 = LocalDate.now().minusMonths(1);
-                return userRepository.getEvaluation(id,date2);
+                return userRepository.getEvaluationAVGDate(id,date2);
             default:
                 LocalDate date3 = LocalDate.now().minusYears(1);
-                return userRepository.getEvaluation(id,date3);
+                return userRepository.getEvaluationAVGDate(id,date3);
         }
     }
 

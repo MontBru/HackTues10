@@ -12,7 +12,11 @@ export default function Navbar({isStudent}) {
             <h1 className="text-3xl text-neutral-300">Beat box</h1>
             {!isStudent &&
                 <div className="flex items-center space-x-1.5">
-                    <p className="text-2xl text-neutral-300">Live</p>
+                    <Link href="/live_page">
+                        <p className="text-2xl text-neutral-300">
+                            Live
+                        </p>
+                    </Link>
                     <CircleIcon fontSize="small" color="error"/>
                 </div>
             }
