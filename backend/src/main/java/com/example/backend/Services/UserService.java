@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -27,5 +28,9 @@ public class UserService {
                 list_of_DTO.add(user.convertUserToUserDTO());
             }
             return list_of_DTO;
+    }
+
+    public Optional<Object> getByEmail(String userEmail) {
+        return userRepository.findByEmail(userEmail);
     }
 }

@@ -5,8 +5,11 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,8 +51,8 @@ public class MyUser
     @OneToMany(mappedBy="user_class", fetch = FetchType.EAGER)
     private List<Subclass> classes;
 
-    public MyUser(Long id, String name, String email, String password, int device_id, int role) {
-        this.id = id;
+    public MyUser( String name, String email, String password, int device_id, int role) {
+
         this.name = name;
         this.email = email;
         this.password = password;
@@ -57,8 +60,7 @@ public class MyUser
         this.role = role;
     }
 
-    public MyUser(Long id, String name, String email, String password, int device_id, int role, int number, List<HrEntry> hrEntries, List<Subclass> classes) {
-        this.id = id;
+    public MyUser( String name, String email, String password, int device_id, int role, int number, List<HrEntry> hrEntries, List<Subclass> classes) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -68,6 +70,9 @@ public class MyUser
         this.hrEntries = hrEntries;
         this.classes = classes;
     }
+
+    
+
 
     public MyUser() {}
 
@@ -158,5 +163,8 @@ public class MyUser
                 ", role=" + role +
                 ", number=" + number +
                 '}';
+    }
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 }

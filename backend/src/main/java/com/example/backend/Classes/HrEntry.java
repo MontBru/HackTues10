@@ -27,7 +27,7 @@ public class HrEntry {
 
     @ManyToOne
     @JsonManagedReference
-    private User user;
+    private MyUser user;
 
     public HrEntry() {}
 

@@ -26,7 +26,7 @@ public class Subclass
 
     @ManyToOne
     @JsonManagedReference
-    private User user_class;
+    private MyUser user_class;
 
     @OneToMany(mappedBy="class_subjects", fetch = FetchType.EAGER)
     private List<Subject> subjects;
