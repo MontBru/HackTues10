@@ -26,7 +26,7 @@ public class User
 
     private int device_id;
 
-
+    private int number;
 
     public User(String name, String email, String password, int device_id) {
         this.name = name;
