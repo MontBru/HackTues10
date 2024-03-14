@@ -1,4 +1,4 @@
-package com.example.backend.Controller;
+package com.example.backend.Controllers;
 
 
 import com.example.backend.DTO.HREntryDTO;
