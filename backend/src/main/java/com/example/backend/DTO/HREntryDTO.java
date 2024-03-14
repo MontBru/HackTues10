@@ -1,50 +1,29 @@
-package com.example.backend.Classes;
+package com.example.backend.DTO;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
-
-@Entity
-public class HrEntry {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class HREntryDTO {
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false, updatable = false)
+
     private Date createdAt;
 
-    @Column(name= "value")
+
     private int value;
 
-    @Column(name = "evaluation")
+
     private int evaluation;
 
-    @ManyToOne
-    @JsonManagedReference
-    private MyUser user;
-
-    public HrEntry() {}
-
-    public HrEntry(Long id, Date createdAt, int value, int evaluation) {
-        this.id = id;
+    public HREntryDTO(Date createdAt, int value, int evaluation) {
         this.createdAt = createdAt;
         this.value = value;
         this.evaluation = evaluation;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Date getCreatedAt() {
@@ -73,9 +52,8 @@ public class HrEntry {
 
     @Override
     public String toString() {
-        return "HrEntry{" +
-                "id=" + id +
-                ", createdAt=" + createdAt +
+        return "HREntryDTO{" +
+                "createdAt=" + createdAt +
                 ", value=" + value +
                 ", evaluation=" + evaluation +
                 '}';

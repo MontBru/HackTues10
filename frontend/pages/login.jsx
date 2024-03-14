@@ -3,10 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -60,7 +57,7 @@ palette: {
   
   
 
-export default function LogIn() {
+export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -86,6 +83,7 @@ export default function LogIn() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyItems: 'center',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
@@ -103,6 +101,7 @@ export default function LogIn() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              focused={true}
               autoFocus
             />
             <TextField
@@ -113,6 +112,7 @@ export default function LogIn() {
               label="Password"
               type="password"
               id="password"
+              focused={true}
             />
             <Button
               type="submit"
@@ -122,7 +122,7 @@ export default function LogIn() {
             >
               Sign In
             </Button>
-            <Link href="/signin" variant="body2">
+            <Link href="/register" variant="body2">
                 {"Don't have an account? Sign Up"}
             </Link>
           </Box>

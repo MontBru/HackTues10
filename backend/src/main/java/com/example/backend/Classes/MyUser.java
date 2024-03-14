@@ -1,10 +1,17 @@
 package com.example.backend.Classes;
 
+import com.example.backend.DTO.UserDTO;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
-
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +19,7 @@ import java.util.Optional;
 @Data
 @Entity
 @Table(name = "user_table")
-public class User
+public class MyUser
 {
     @Id
     @SequenceGenerator( name="user_sequence", sequenceName="user_sequence", allocationSize = 1)
@@ -44,8 +51,8 @@ public class User
     @OneToMany(mappedBy="user_class", fetch = FetchType.EAGER)
     private List<Subclass> classes;
 
-    public User(Long id, String name, String email, String password, int device_id, int role) {
-        this.id = id;
+    public MyUser( String name, String email, String password, int device_id, int role) {
+
         this.name = name;
         this.email = email;
         this.password = password;
@@ -53,8 +60,7 @@ public class User
         this.role = role;
     }
 
-    public User(Long id, String name, String email, String password, int device_id, int role, int number, List<HrEntry> hrEntries, List<Subclass> classes) {
-        this.id = id;
+    public MyUser( String name, String email, String password, int device_id, int role, int number, List<HrEntry> hrEntries, List<Subclass> classes) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -65,7 +71,10 @@ public class User
         this.classes = classes;
     }
 
-    public User() {}
+    
+
+
+    public MyUser() {}
 
     public Long getId() {
         return id;
@@ -91,9 +100,6 @@ public class User
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -141,6 +147,11 @@ public class User
         this.classes = classes;
     }
 
+    public UserDTO convertUserToUserDTO()
+    {
+        return new UserDTO(this.getName(),this.getEmail(),this.getPassword(),this.getDevice_id(),this.getRole());
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -152,5 +163,8 @@ public class User
                 ", role=" + role +
                 ", number=" + number +
                 '}';
+    }
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 }

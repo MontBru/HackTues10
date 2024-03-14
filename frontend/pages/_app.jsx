@@ -8,7 +8,7 @@ const theme = createTheme({
       main: '#D4D4D4',
     },
     background: {
-      default: '#121212',
+      main: '#111827',
       paper: '#1E1E1E',
     },
     text: {
@@ -23,7 +23,6 @@ const theme = createTheme({
 
 
 export default function App({ Component, pageProps }) {
-
   return (
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
