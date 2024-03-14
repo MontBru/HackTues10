@@ -12,12 +12,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Authentication from '@/services/Authentication';
 
 const theme = createTheme({
 palette: {
     type: 'dark', // Setting the theme type to dark mode
     primary: {
-    main: '#D4D4D4', // Your primary color
+    main: '#D4D4D4',
     },
     background: {
     default: '#121212', // Dark background color
@@ -59,16 +60,20 @@ palette: {
   
   
 
-export default function SignIn() {
-  const handleSubmit = (event) => {
+export default function LogIn() {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
-
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  
+    try {
+      await Authentication({ email: data.get('email'), password: data.get('password') });
+      console.log({
+        email: data.get('email'),
+        password: data.get('password'),
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
