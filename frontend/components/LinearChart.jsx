@@ -1,4 +1,3 @@
-import React, {useState} from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -21,7 +20,7 @@ ChartJS.register(
     Legend
 );
 
-export default function LinearChart({title, labels, userData, yAxisText, xAxisText}) {
+export default function LinearChart({title, labels, userData, yAxisText, xAxisText, userData2}) {
     const options = {
         responsive: true,
         interaction: {
@@ -40,6 +39,7 @@ export default function LinearChart({title, labels, userData, yAxisText, xAxisTe
             title: {
                 display: true,
                 text: title,
+                align: "start",
                 color: "white",
                 font: {
                     size: 30
@@ -91,10 +91,19 @@ export default function LinearChart({title, labels, userData, yAxisText, xAxisTe
                     label: 'Heart rate',
                     data: userData,
                     borderColor: 'rgba(244, 52, 84, 255)',
-                    fill: true,
+                    fill: false,
                     backgroundColor: 'rgba(244, 52, 84, 255)',
-                    yAxisID: 'y',
                 },
+                // {
+                //     label: 'Heart rate',
+                //     data: [{x: 0.3, y:userData[0]}, {x: 0.5, y:userData[1]}, {x: 1.3, y:userData[2]}, {x: 1.4, y:userData[3]},
+                //         {x: 2.5, y:userData[4]}, {x: 2.6, y:userData[5]}, {x: 3.5, y:userData[6]}, {x: 3.7, y:userData[7]},
+                //         {x: 4.3, y:userData[8]}, {x: 4.8, y:userData[9]}, {x: 5.4, y:userData[10]}, {x: 5.5, y:userData[11]},
+                //         {x: 6.7, y:userData[12]}, {x: 6.9, y:userData[13]}, {x: 7.3, y:userData[14]}, {x: 7.4, y:userData[15]},],
+                //     borderColor: 'rgba(244, 52, 84, 255)',
+                //     fill: false,
+                //     backgroundColor: 'rgba(244, 52, 84, 255)',
+                // }
             ],
         }
     };
