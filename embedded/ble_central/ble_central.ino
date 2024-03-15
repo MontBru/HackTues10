@@ -3,8 +3,9 @@
 
 
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(9600);
-  while (!Serial);
+  //while (!Serial);
   BLE.begin();
   
   Serial1.begin(9600);  
@@ -36,6 +37,22 @@ void loop() {
     // Start scanning again
     BLE.scanForUuid("19B10000-E8F2-537E-4F6C-D104768A1214");
   }
+}
+
+void signa()
+{
+  digitalWrite(LED_BUILTIN,LOW);
+  delay(200);
+  digitalWrite(LED_BUILTIN,HIGH);
+  delay(200);
+  digitalWrite(LED_BUILTIN,LOW);
+  delay(200);
+  digitalWrite(LED_BUILTIN,HIGH);
+  delay(200);
+  digitalWrite(LED_BUILTIN,LOW);
+  delay(200);
+  digitalWrite(LED_BUILTIN,HIGH);
+  delay(200);
 }
 
 void readBPM(BLEDevice peripheral) {
@@ -77,6 +94,7 @@ void readBPM(BLEDevice peripheral) {
         Serial.println("Encoded JSON:");
         Serial.println(jsonString);
         Serial1.println(jsonString);
+        signa();
       } else {
         Serial.println("Failed to read BPM value!");
       }

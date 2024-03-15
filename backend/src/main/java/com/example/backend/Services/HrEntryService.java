@@ -2,18 +2,21 @@ package com.example.backend.Services;
 
 import com.example.backend.Classes.HrEntry;
 import com.example.backend.Classes.MyUser;
+import com.example.backend.DTO.HREntryDTO;
 import com.example.backend.Repositories.HrEntryRepository;
+import com.example.backend.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.stream.IntStream;
+import java.util.List;
 
 @Service
 public class HrEntryService {
 
     @Autowired
     HrEntryRepository hrEntryRepository;
+    UserRepository userRepository;
 
     @Autowired
     AiService aiService;
@@ -67,6 +70,14 @@ public class HrEntryService {
             mediana = values[(values.length+1) / 2];
         }
         return mediana;
+    }
+
+    public void createHrEntryWithList(List<HREntryDTO> data) throws Exception {
+        for(int i = 0; i < data.size(); i++)
+        {
+            MyUser user = userRepository.getByDeviceId(data.get(i).getId());
+            createHrEntry(data.get(i).getValue(), user);
+        }
     }
 
     public void createHrEntry(int value, MyUser user) throws Exception {

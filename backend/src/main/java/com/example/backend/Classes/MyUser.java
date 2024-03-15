@@ -36,7 +36,7 @@ public class MyUser
     private String password;
 
     @Column(name = "device_id")
-    private int device_id;
+    private String device_id;
 
     @Column(name = "role")
     private int role;
@@ -55,7 +55,7 @@ public class MyUser
     )
     private List<Subclass> classes;
 
-    public MyUser( String name, String email, String password, int device_id, int role) {
+    public MyUser( String name, String email, String password, String device_id, int role) {
 
         this.name = name;
         this.email = email;
@@ -64,7 +64,7 @@ public class MyUser
         this.role = role;
     }
 
-    public MyUser( String name, String email, String password, int device_id, int role, int number, List<HrEntry> hrEntries, List<Subclass> classes) {
+    public MyUser( String name, String email, String password, String device_id, int role, int number, List<HrEntry> hrEntries, List<Subclass> classes) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -109,11 +109,11 @@ public class MyUser
         this.password = password;
     }
 
-    public int getDevice_id() {
+    public String getDevice_id() {
         return device_id;
     }
 
-    public void setDevice_id(int device_id) {
+    public void setDevice_id(String device_id) {
         this.device_id = device_id;
     }
 

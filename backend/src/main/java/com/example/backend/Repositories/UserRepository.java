@@ -26,4 +26,6 @@ public interface UserRepository extends JpaRepository<MyUser,Long>
     }
     Optional<Object> findByEmail(String username);
 
+    @Query("SELECT u FROM MyUser u WHERE u.device_id = :id")
+    MyUser getByDeviceId(String id);
 }

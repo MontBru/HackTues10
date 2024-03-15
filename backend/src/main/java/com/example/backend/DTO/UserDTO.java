@@ -1,16 +1,14 @@
 package com.example.backend.DTO;
 
-import jakarta.persistence.Column;
-
 public class UserDTO
 {
     private String name;
     private String email;
     private String password;
-    private int device_id;
+    private String device_id;
     private int role;
 
-    public UserDTO(String name, String email, String password, int device_id, int role) {
+    public UserDTO(String name, String email, String password, String device_id, int role) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -44,11 +42,11 @@ public class UserDTO
         this.password = password;
     }
 
-    public int getDevice_id() {
+    public String getDevice_id() {
         return device_id;
     }
 
-    public void setDevice_id(int device_id) {
+    public void setDevice_id(String device_id) {
         this.device_id = device_id;
     }
 
