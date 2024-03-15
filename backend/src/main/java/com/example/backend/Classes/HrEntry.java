@@ -31,11 +31,12 @@ public class HrEntry {
 
     public HrEntry() {}
 
-    public HrEntry(Long id, Date createdAt, int value, int evaluation) {
-        this.id = id;
+    public HrEntry( Date createdAt, int value, int evaluation, MyUser user) {
+
         this.createdAt = createdAt;
         this.value = value;
         this.evaluation = evaluation;
+        this.user = user;
     }
 
 
