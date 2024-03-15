@@ -8,6 +8,7 @@ import {
     Title,
     Tooltip,
     Legend,
+    Filler
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
@@ -18,7 +19,8 @@ ChartJS.register(
     LineElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    Filler
 );
 
 export default function LinearChart({title, labels, userData, yAxisText, xAxisText}) {
@@ -91,11 +93,23 @@ export default function LinearChart({title, labels, userData, yAxisText, xAxisTe
                     label: 'Heart rate',
                     data: userData,
                     borderColor: 'rgba(244, 52, 84, 255)',
+                    borderWidth: 2,
+                    pointRadius: 0,
                     fill: true,
-                    backgroundColor: 'rgba(244, 52, 84, 255)',
+                    backgroundColor:(context)=>{
+                        const bgColor = ['rgba(244, 52, 84, 255)', 'rgba(0,0,0,0)'];
+                        console.log(context.chart.chartArea)
+                        if(!context.chart.chartArea)
+                            return;
+                        const {ctx, data, chartArea:{top, bottom}} = context.chart;
+                        const gradientBg = ctx.createLinearGradient(0,top,0,bottom);
+                        gradientBg.addColorStop(0, bgColor[0]);
+                        gradientBg.addColorStop(1, bgColor[1]);
+                        return gradientBg;
+                    },
                     yAxisID: 'y',
                 },
-            ],
+            ]
         }
     };
 
