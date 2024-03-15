@@ -45,9 +45,7 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->{
-                    auth.requestMatchers( "/auth/authentication", "/auth/register").permitAll();
-                    auth.requestMatchers(HttpMethod.OPTIONS).permitAll();
-                    auth.anyRequest().authenticated();
+                    auth.anyRequest().permitAll();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider )
@@ -67,7 +65,7 @@ public class SecurityConfiguration {
         options.add("DELETE");
         options.add("OPTIONS");
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.setAllowedMethods(options);
         source.registerCorsConfiguration("/**", config);
