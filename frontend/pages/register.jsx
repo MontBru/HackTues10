@@ -98,7 +98,8 @@ export default function Register(){
             })
             console.log({email, password, name, device_id, class_num, classs, grades})
         }
-        const data1 = await Registration(name, email, password, class_num, device_id, classs, grades)
+        const role = isTeacher ? 0 : 1
+        const data1 = await Registration(name, email, password, class_num, device_id, classs, role)
         sessionStorage.setItem("jwtAccess", data1.token)
         router.push("http://localhost:3000/")
     

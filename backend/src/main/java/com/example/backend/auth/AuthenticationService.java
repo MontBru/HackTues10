@@ -51,7 +51,7 @@ public class AuthenticationService {
         System.out.println("alo da");
         MyUser newUser = new MyUser(request.getUsername(), request.getEmail(),
         passwordEncoder.encode(request.getPassword()), request.getDevice_id(),
-                1, request.getNumber(), null, subclassList );
+                request.getRole(), request.getNumber(), null, subclassList );
         repository.save(newUser);
         var jwtToken = jwtService.generateToken(newUser);
         return new AuthenticationResponse(jwtToken, newUser);

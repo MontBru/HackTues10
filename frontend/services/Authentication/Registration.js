@@ -6,7 +6,7 @@ import React from 'react'
 
 
 
-const Registration = async (name, email, password, class_num, device_id, classes, grades)  => {
+const Registration = async (name, email, password, class_num, device_id, classes, role)  => {
     
     console.log(name)
     try{
@@ -16,7 +16,8 @@ const Registration = async (name, email, password, class_num, device_id, classes
             password : password,
             device_id : device_id,
             number : class_num,
-            classes: classes
+            classes: classes,
+            role: role
         })
         const data = await response.data
         return data

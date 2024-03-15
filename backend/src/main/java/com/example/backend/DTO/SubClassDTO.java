@@ -25,4 +25,6 @@ public class SubClassDTO {
     public void setGrade(String grade) {
         this.grade = grade;
     }
+
+
 }

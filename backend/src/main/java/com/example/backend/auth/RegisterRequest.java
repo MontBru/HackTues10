@@ -39,16 +39,19 @@ public class RegisterRequest {
 
     private List<SubClassDTO> classes;
 
+    private int role;
+
     public RegisterRequest() {
     }
 
-    public RegisterRequest(String username, String email, String password, String device_id, int number, List<SubClassDTO> classes) {
+    public RegisterRequest(String username, String email, String password, String device_id, int number, List<SubClassDTO> classes, int role) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.device_id = device_id;
         this.number = number;
         this.classes = classes;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -97,5 +100,13 @@ public class RegisterRequest {
 
     public void setClasses(List<SubClassDTO> classes) {
         this.classes = classes;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 }
