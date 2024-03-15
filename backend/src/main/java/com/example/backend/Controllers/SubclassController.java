@@ -5,8 +5,6 @@ import com.example.backend.Services.SubClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/subclass")
 public class SubclassController {
@@ -15,10 +13,16 @@ public class SubclassController {
     SubClassService subClassService;
 
 
-    @GetMapping(path = "/subClassAVG/{subClassID}/{zone}")
-    public double subClassAVG(@PathVariable int subClassID, @PathVariable String zone)
+    @GetMapping(path = "/subClassAVG")
+    public double subClassAVG(@RequestBody Long subClassID,@RequestBody String zone)
     {
         return subClassService.subClassAVG(subClassID, zone);
+    }
+
+    @GetMapping("/studentsWithLostAttention")
+    public List<UserAttentionDTO> studentsTired(@RequestParam Subclass subclass)
+    {
+        return subClassService.getTiredStudents(subclass);
     }
 
     @GetMapping(path = "/subClassStudentsAVG/{subClassID}" )

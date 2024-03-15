@@ -1,4 +1,3 @@
-import { Rubik } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import LinearChart from "@/components/LinearChart";
 import DatePickerField from "@/components/DatePickerField";
@@ -10,10 +9,9 @@ import MetricsCard from "@/components/MetricsCard";
 import ItemsList from "@/components/ItemsList";
 import Box from "@mui/material/Box";
 
-const rubik = Rubik({ subsets: ["cyrillic"] });
-
 export default function Home() {
   const [clas, setClas] = useState("");
+  const [students, setStudents] = useState([]);
   const [date, setDate] = useState("");
   const [metricThisMonth, setMetricThisMonth] = useState(0);
   const [metricThisWeek, setMetricThisWeek] = useState(0);
@@ -22,20 +20,21 @@ export default function Home() {
   const [pulseData, setPulseData] = useState([]);
   const [studentAttentionData, setStudentAttentionData] = useState([]);
   const [subjects, setSubjects] = useState([]);
-  const [classes, setClasses] = useState([]);
+  const [classes, setClasses] = useState(["12 v", "11 V", "12 A", "10 G"]);
   const [classAttention, setClassAttention] = useState([]);
   const attentionDefaultValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   useEffect(() => {
+    setIsStudent(false);
     setMetricThisMonth(7);
     setMetricThisWeek(6);
     setMetricThisDay(7);
-    setIsStudent(false);
     setPulseData([100, 75, 65, 90, 110, 130, 70]);
     setStudentAttentionData([5, 8, 6, 9, 7, 4, 5]);
     setSubjects(['English', "Maths", "VOT", "IOT", "Biology", "Chemistry", "History"]);
     setClasses(["12 v", "11 V", "12 A", "10 G"]);
     setClassAttention([5, 0, 8, 6, 9, 7, 0, 4, 5, 0]);
+    setStudents(["Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V", "Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V"]);
   }, []);
 
   if(isStudent === null){
@@ -50,7 +49,7 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center bg-neutral-900 px-10 space-y-10 pb-20 ${rubik.className}`}
+      className={`flex min-h-screen flex-col items-center bg-neutral-900 px-10 space-y-10 pb-20`}
     >
       <Navbar isStudent={isStudent} islive={false}/>
       { isStudent ?
@@ -63,6 +62,7 @@ export default function Home() {
               yAxisText="beats per minute"
               xAxisText="subjects"
               stepSize={10}
+              datasetLabel='Heart rate'
           />
           <BarChart
               title={"Student's attention chart"}
@@ -87,8 +87,8 @@ export default function Home() {
                       onChange={(event) => setClas(event.target.value)}
                   >
                     {
-                      classes.map((clas) => (
-                        <MenuItem value={clas}>{clas}</MenuItem>
+                      classes.map((clas, index) => (
+                        <MenuItem key={`menu-item-${index}`} value={clas}>{clas}</MenuItem>
                       ))
                     }
                   </Select>
@@ -109,7 +109,13 @@ export default function Home() {
               </Grid>
             </div>
             <div className="flex items-center space-x-20">
-              <ItemsList list={["Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V", "Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V"]}/>
+              {
+                students.length > 0 ?
+                  <ItemsList list={students}/> :
+                  <div style={{ width: '100%', height: 300, maxWidth: 320 }} className="flex justify-center items-center bg-neutral-800 rounded-lg p-2">
+                    <p className="text-xl text-neutral-300 text-center">Select class to view students and statistics!</p>
+                  </div>
+              }
               <div className="w-full">
                 <BarChart
                     title={""}
