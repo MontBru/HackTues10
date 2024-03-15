@@ -9,14 +9,14 @@ export default function Navbar({isStudent}) {
 
     return (
         <nav className="flex items-center justify-between w-full h-20">
-            <h1 className="text-3xl text-neutral-300">Beat box</h1>
-            {!isStudent &&
-                <div className="flex items-center space-x-1.5">
-                    <p className="text-2xl text-neutral-300">Live</p>
-                    <CircleIcon fontSize="small" color="error"/>
-                </div>
-            }
+            <h1 className="text-3xl text-neutral-300">FocusFlow</h1>
             <div className="flex items-center space-x-10">
+                {!isStudent &&
+                    <div className="flex items-center space-x-1.5">
+                        <p className="text-2xl text-neutral-300">Live</p>
+                        <CircleIcon fontSize="small" color="error"/>
+                    </div>
+                }
                 <p className="text-xl text-neutral-300">{name}</p>
                 <Link href="/login">
                     <IconButton color="primary">
