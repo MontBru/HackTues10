@@ -18,8 +18,8 @@ public class SubclassController {
     SubClassService subClassService;
 
 
-    @GetMapping(path = "/subClassAVG")
-    public double subClassAVG(@RequestBody int subClassID,@RequestBody String zone)
+    @GetMapping(path = "/subClassAVG/{subClassID}/{zone}")
+    public double subClassAVG(@PathVariable int subClassID,@PathVariable String zone)
     {
         return subClassService.subClassAVG(subClassID, zone);
     }
