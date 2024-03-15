@@ -2,6 +2,8 @@ package com.example.backend.auth;
 
 
 import com.example.backend.Classes.MyUser;
+import com.example.backend.Classes.Subclass;
+import com.example.backend.Repositories.SubClassRepository;
 import com.example.backend.Repositories.UserRepository;
 import com.example.backend.Services.SubjectServices;
 import com.example.backend.Services.UserService;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class AuthenticationService {
@@ -35,15 +38,20 @@ public class AuthenticationService {
 
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private SubClassRepository subClassRepository;
 
     @Autowired
     private AuthenticationManager authenticationManager;
     public AuthenticationResponse register(RegisterRequest request)
     {
+        List<Subclass> subclassList = request.getClasses().stream().map((c) ->{
+            return subClassRepository.findByKlasAndGrade(c.getKlas(), c.getGrade()).orElse(null);
+        }).toList();
         System.out.println("alo da");
         MyUser newUser = new MyUser(request.getUsername(), request.getEmail(),
         passwordEncoder.encode(request.getPassword()), request.getDevice_id(),
-                1, request.getNumber(), null, null );
+                request.getRole(), request.getNumber(), null, subclassList );
         repository.save(newUser);
         var jwtToken = jwtService.generateToken(newUser);
         return new AuthenticationResponse(jwtToken, newUser);

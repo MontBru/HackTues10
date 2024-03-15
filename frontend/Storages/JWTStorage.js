@@ -3,7 +3,7 @@ import { create } from 'zustand';
 
 
 
-const useJWTStore = create<Store>((set) => ({
+const useJWTStore = create((set) => ({
     isAuthenticated: false,
     setIsAuthenticated: (authenticated) => set((state) => { 
         return { ...state,isAuthenticated: authenticated }
