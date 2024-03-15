@@ -32,15 +32,27 @@ export default function Home() {
   useEffect(() => {
     
     const fetch = async () => {
+      if(clas != null || clas != '' || clas != undefined )
+      {
+        const metricThisMonthAVG = await getSubClassAVG(clas, "month")
+        setMetricThisMonth(metricThisMonthAVG);
+        
+        const metricThisWeekAVG = await getSubClassAVG(clas, "week")
+        setMetricThisWeek(metricThisWeekAVG);
+        
+        const metricThisDayAVG = await getSubClassAVG(clas, "day")
+        setMetricThisDay(metricThisDayAVG);
+      }
+      else
+      {
+        setMetricThisMonth(0);
+        
+        setMetricThisWeek(0);
+        
+        setMetricThisDay(0);
+      }
       
-      const metricThisMonthAVG = await getSubClassAVG(clas, "month")
-      setMetricThisMonth(metricThisMonthAVG);
-      
-      const metricThisWeekAVG = await getSubClassAVG(clas, "week")
-      setMetricThisWeek(metricThisWeekAVG);
-      
-      const metricThisDayAVG = await getSubClassAVG(clas, "day")
-      setMetricThisDay(metricThisDayAVG);
+
       if(me.role === 0)
       {
         setIsStudent(false);
