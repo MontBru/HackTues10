@@ -64,33 +64,34 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
                     MyUser userDetails = (MyUser) userService.getByEmail(userEmail).orElse(null);
-                    if(request.getRequestURI().equals("/user/getMe")
-                            || request.getRequestURI().equals("/user/addFavorite")
-                            || request.getRequestURI().equals("/user/removeFavorite")
-                            || request.getRequestURI().equals("/user/addHistory")
-                            || request.getRequestURI().equals("/user/removeHistory"))
+                    if(request.getRequestURI().equals("/user/isTokenValid"))
                     {
-                        System.out.println(userDetails.toString());
-                        request.setAttribute("me", userDetails);
+                        request.setAttribute("isAuthenticated", jwtService.isTokenValid(jwt, userDetails));
                     }
-                    if (jwtService.isTokenValid(jwt, userDetails)) {
+                    try{
+                        if (jwtService.isTokenValid(jwt, userDetails)) {
 
-                        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                                userDetails,
-                                null,
-                                userDetails.getAuthorities()
-                        );
+                            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                                    userDetails,
+                                    null,
+                                    userDetails.getAuthorities()
+                            );
 
-                        authToken.setDetails(
-                                new WebAuthenticationDetailsSource().buildDetails(request)
-                        );
-                        SecurityContextHolder.getContext().setAuthentication(authToken);
+                            authToken.setDetails(
+                                    new WebAuthenticationDetailsSource().buildDetails(request)
+                            );
+                            SecurityContextHolder.getContext().setAuthentication(authToken);
 
+                        }
+                        System.out.println(jwtService.isTokenValid(jwt, userDetails));
+
+
+                        filterChain.doFilter(request, response);
+                    }catch(Exception e){
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     }
-                    System.out.println(jwtService.isTokenValid(jwt, userDetails));
                 }
 
-                filterChain.doFilter(request, response);
 //            }catch (RuntimeException error){
 //                throw new RuntimeException("Unauthorized");
 //            }
