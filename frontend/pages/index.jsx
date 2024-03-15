@@ -12,7 +12,7 @@ const rubik = Rubik({ subsets: ["cyrillic"] });
 
 export default function Home() {
   const [clas, setClas] = useState(null);
-  const isStudent = true;
+  const isStudent = false;
 
   return (
     <main

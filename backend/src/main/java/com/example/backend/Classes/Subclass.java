@@ -28,6 +28,13 @@ public class Subclass
     @JsonManagedReference
     private MyUser user_class;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "class_user_table",
+            joinColumns = @JoinColumn(name = "class_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id")
+    )
+    private List<MyUser> users;
+
     @OneToMany(mappedBy="class_subjects", fetch = FetchType.EAGER)
     private List<Subject> subjects;
 
