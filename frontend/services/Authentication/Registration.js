@@ -1,20 +1,23 @@
 
+import { axiosInstance } from '@/Helpers/FetchHelper';
 import { responseEncoding } from 'axios';
 import React from 'react'
-import { json } from 'stream/consumers';
 
 
 
-const Registration = async ({formData})  => {
+
+const Registration = async (name, email, password, class_num, device_id, classes, role)  => {
     
-    
+    console.log(name)
     try{
         const response = await axiosInstance.post('http://localhost:8080/auth/register', {
-            username: formData.username,
-            email : formData.email,
-            password : formData.password,
-            device_id : formData.device_id,
-            nimber : formData.number
+            username: name,
+            email : email,
+            password : password,
+            device_id : device_id,
+            number : class_num,
+            classes: classes,
+            role: role
         })
         const data = await response.data
         return data

@@ -15,9 +15,6 @@ export default function StudentPage({student}) {
         name: "Nikola Petrov",
         clas: "12 V"
     }
-    const [clas, setClas] = useState("");
-    const isStudent = false;
-
     const [showPopup, setShowPopup] = useState(false);
     const mockData = [{subjectName:"Maths", entryIds: [5,1], attention: 5},{subjectName:"BEL", entryIds: [2,4], attention: 6}, {subjectName:"AE", entryIds: [3,6,7], attention: 4}]
 
@@ -25,7 +22,7 @@ export default function StudentPage({student}) {
         <main
             className={`flex min-h-screen flex-col items-center bg-neutral-900 px-10 space-y-10 ${rubik.className}`}
         >
-            <Navbar isStudent={isStudent}/>
+            <Navbar isStudent={false}/>
             <ChangeEvalPopup isOpen={showPopup} onClose={()=>{setShowPopup(false)}} evaluations={mockData}/>
             <Fab aria-label="edit" onClick={()=>{setShowPopup(true)}} className="absolute bottom-10 right-10">
                 <EditIcon color="primary" />
