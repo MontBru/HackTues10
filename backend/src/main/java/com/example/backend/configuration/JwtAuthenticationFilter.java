@@ -33,9 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtService jwtService;
     @Autowired
     private UserDetailsService userDetailsService;
-//    public JwtAuthenticationFilter(JwtService jwtService) {
-//        this.jwtService = jwtService;
-//    }
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -92,50 +90,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     }
                 }
 
-//            }catch (RuntimeException error){
-//                throw new RuntimeException("Unauthorized");
-//            }
         }
     }
-//        } catch (Exception error) {
-//            // Create a JSON error response
-//            ErrorResponse errorResponse = new ErrorResponse("Unauthorized", error.getMessage());
-//            String jsonResponse = objectMapper.writeValueAsString(errorResponse);
-//
-//            // Send the JSON error response
-//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//            response.setContentType("application/json");
-//            response.getWriter().write(jsonResponse);
-//            response.getWriter().flush();
-//            response.getWriter().close();
-//            return;
-//        }
-//    }
-//
-//    // Custom error response class
-//    public class ErrorResponse {
-//        private String error;
-//        private String message;
-//
-//        public ErrorResponse(String error, String message) {
-//            this.error = error;
-//            this.message = message;
-//        }
-//
-//        public String getError() {
-//            return error;
-//        }
-//
-//        public void setError(String error) {
-//            this.error = error;
-//        }
-//
-//        public String getMessage() {
-//            return message;
-//        }
-//
-//        public void setMessage(String message) {
-//            this.message = message;
-//        }
-//        // Constructor, getters, and setters
-//    }

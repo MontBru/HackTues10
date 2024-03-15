@@ -33,7 +33,7 @@ public class UserController
         return userService.getUsersDTO();
     }
 
-    @GetMapping("/getEvaluation/{id}/{time}")
+    @GetMapping("/getEvaluation/{id}/{flag}")
     public int  getEvaluation(@RequestParam Long id, @RequestParam int flag){
         return userService.getEvaluationAVG(id,flag);
     }

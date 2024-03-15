@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface HrEntryRepository extends JpaRepository<HrEntry, Long> {
-    @Query("SELECT h.value HrEntry h WHERE h.user_id = ?1 ORDER BY h.value LIMIT 10000")
+    @Query("SELECT h.value FROM HrEntry h WHERE h.user.id = ?1 ORDER BY h.value LIMIT 10000")
     public int[] takeLimitedEntries(long id);
 
 }

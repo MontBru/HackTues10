@@ -32,7 +32,7 @@ public class RegisterRequest {
 
 
 //    @Size(max = 500, message = "user description should have max 500 characters")
-    private int device_id;
+    private String device_id;
 
     private int number;
 
@@ -41,7 +41,7 @@ public class RegisterRequest {
     public RegisterRequest() {
     }
 
-    public RegisterRequest(String username, String email, String password, int device_id, int number) {
+    public RegisterRequest(String username, String email, String password, String device_id, int number) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -73,11 +73,11 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public int getDevice_id() {
+    public String getDevice_id() {
         return device_id;
     }
 
-    public void setDevice_id(int device_id) {
+    public void setDevice_id(String device_id) {
         this.device_id = device_id;
     }
 
