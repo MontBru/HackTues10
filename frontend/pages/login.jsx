@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Authentication from '@/services/Authentication';
+import { Router, useRouter } from 'next/router';
 
 const theme = createTheme({
 palette: {
@@ -58,16 +59,19 @@ palette: {
   
 
 export default function Login() {
+  const router = useRouter();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   
     try {
-      await Authentication({ email: data.get('email'), password: data.get('password') });
+      const data1 = await Authentication({ email: data.get('email'), password: data.get('password') });
       console.log({
         email: data.get('email'),
         password: data.get('password'),
       });
+      sessionStorage.setItem("jwtAccess", data1.token)
+      router.push("http://localhost:3000/")
     } catch (error) {
       console.error(error);
     }
