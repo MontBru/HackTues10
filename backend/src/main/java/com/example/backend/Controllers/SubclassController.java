@@ -19,10 +19,11 @@ public class SubclassController {
     SubClassService subClassService;
 
 
-    @GetMapping(path = "/subClassAVG/{subClassID}/{zone}")
-    public double subClassAVG(@PathVariable int subClassID,@PathVariable String zone)
+    @GetMapping(path = "/subClassAVG/{klas}/{grade}/{zone}")
+    public double subClassAVG(@PathVariable String klas, @PathVariable String grade, @PathVariable String zone)
     {
-        return subClassService.subClassAVG(subClassID, zone);
+
+        return subClassService.subClassAVG(klas, grade, zone);
     }
 
     @GetMapping("/studentsWithLostAttention")

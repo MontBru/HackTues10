@@ -4,6 +4,7 @@ package com.example.backend.Services;
 import com.example.backend.Classes.HrEntry;
 import com.example.backend.Classes.MyUser;
 import com.example.backend.Classes.Subclass;
+import com.example.backend.DTO.SubclassDTO;
 import com.example.backend.DTO.UserAttentionDTO;
 import com.example.backend.Repositories.SubClassRepository;
 import com.example.backend.Repositories.UserRepository;
@@ -27,8 +28,8 @@ public class SubClassService {
     @Autowired
     UserRepository userRepository;
 
-    public double subClassAVG(Long subClassID, String zone){
-        Subclass SubClass = subClassRepository.findById(subClassID).orElse(null);
+    public double subClassAVG(String klas, String grade, String zone){
+        Subclass SubClass = subClassRepository.findByKlasAndGrade(klas, grade).orElse(null);
         LocalDateTime dateTimeLimit = LocalDateTime.now();
         /*Calendar calendar = Calendar.getInstance();
         if (zone.equals("month")) {
