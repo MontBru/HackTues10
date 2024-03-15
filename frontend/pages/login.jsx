@@ -60,7 +60,7 @@ palette: {
   
 
 export default function Login() {
-  const {me, setMe} = useUserStore(); 
+  const {setMe, me} = useUserStore(); 
   const router = useRouter();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -74,6 +74,7 @@ export default function Login() {
       });
       sessionStorage.setItem("jwtAccess", data1.token)
       console.log(data1)
+
       setMe(data1.user)
       router.push("http://localhost:3000/")
     } catch (error) {

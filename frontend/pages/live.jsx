@@ -5,19 +5,23 @@ import ItemsList from "@/components/ItemsList";
 import {useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import {CircularProgress} from "@mui/material";
+import { getLiveUserAttention } from "@/services/User/LiveUserAttention";
 
 export default function Live() {
     const [subject, setSubject] = useState("");
     const [period, setPeriod] = useState("");
     const [students, setStudents] = useState([]);
     const [studentsNoInterest, setStudentsNoInterest] = useState([]);
+    const [clas, setClas] = useState("12 v")
 
     useEffect(() => {
-        const fetchData = () => {
+        const fetchData = async () => {
             setSubject("English");
             setPeriod("9:30 - 10:50");
             setStudents(["Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V", "Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V"]);
-            setStudentsNoInterest([{name: "Nikola Petrov", attention: 3}, {name: "Ivan Postolov", attention: 1}, {name: "Bryan Monticelli", attention: 2}]);
+            const [klas, grade] = clas.split(" ");
+            const NOinterestedUsers = await getLiveUserAttention(klas, grade)
+            setStudentsNoInterest(NOinterestedUsers);
         }
 
         const interval = setInterval(() => {
@@ -55,8 +59,12 @@ export default function Live() {
                 <div className="space-y-5">
                     <p className="text-2xl text-neutral-300">No interest:</p>
                     <div>
+                   {
+                     studentsNoInterest == null &&
                         <Grid container columns={2} spacing={5} style={{width: '720px'}}>
+                           
                             {
+                            
                                 studentsNoInterest.map((student, index) => (
                                     <Grid key={`grid-item-${index}`} item xs={1}>
                                         <Card title={student.name} attention={student.attention}/>
@@ -79,7 +87,7 @@ export default function Live() {
                             {/*    <Card title={"Ivan Postolov"} attention={3}/>*/}
                             {/*</Grid>*/}
                         </Grid>
-                    </div>
+                   } </div>
                 </div>
             </div>
         </main>
