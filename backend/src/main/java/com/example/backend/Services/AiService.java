@@ -29,7 +29,7 @@ public class AiService {
     }
 
     public int AiRequest(double min, double max, int current) throws Exception {
-        String url = "127.0.0.1:5000/get_evaluation?min_avg=" + min + "&max_avg=" + max + "&curr_bpm=" + current ;
+        String url = "http://192.168.161.61:5000/get_evaluation?min_avg=" + (int)min + "&max_avg=" + (int)max + "&curr_bpm=" + current ;
         URL myurl = new URL(url);
 
         connection = (HttpURLConnection) myurl.openConnection();

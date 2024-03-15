@@ -2,9 +2,12 @@ import axios from 'axios';
 import React from 'react'
 
 
-export const getSubClassAVG = async ({subclassID} ) => {
+export const getSubClassAVG = async (subclassID, zone) => {
     try {
-        const response = await axiosInstance.post(`http://localhost:8080/subclass/subClassAVG/${subject_id}`)
+        const response = await axiosInstance.post(`http://localhost:8080/subclass/subClassAVG`, {
+            subClassID : subclassID,
+            zone : zone
+        })
         const data = await response.data;
         console.log(data)
 

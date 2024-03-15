@@ -1,75 +1,99 @@
+//последна версия на [{},{}]
 #include <ArduinoBLE.h>
 #include <ArduinoJson.h>
+#include <Vector.h>
+#define ELEMENT_COUNT_MAX 3
 
+int beats_per_min[ELEMENT_COUNT_MAX];
+String mac_adderess[ELEMENT_COUNT_MAX];
+int last = 0;
 
 void setup() {
+  delay(1000);
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(9600);
-  //while (!Serial);
-  BLE.begin();
   
-  Serial1.begin(9600);  
+  if (!BLE.begin()) {
+    Serial.println("starting Bluetooth® Low Energy module failed!");
 
+    while (1);
+  }
+  BLE.scanForUuid("19b10000-e8f2-537e-4f6c-d104768a1214");//""
+  Serial1.begin(9600);  
   Serial.println("Bluetooth® Low Energy Central - BPM reading");
-  BLE.scanForUuid("19b10000-e8f2-537e-4f6c-d104768a1214");
 }
+
+String message="";
+int prev_millis = 0;
 
 void loop() {
   BLEDevice peripheral = BLE.available();
+  if (peripheral) {  
+      Serial.print("Found ");
+      Serial.print(peripheral.address());
+      Serial.print(" '");
+      Serial.print(peripheral.localName());
+      Serial.print("' ");
+      Serial.print(peripheral.advertisedServiceUuid());
+      Serial.println();
+      BLE.stopScan();
+      int va = get_value(peripheral);
+      if(last<ELEMENT_COUNT_MAX)
+      {
+        beats_per_min[last] = va;
+        mac_adderess[last++] = peripheral.address();
+      }
+      peripheral.disconnect();
+      //zip_json(va);
+  }
 
-  if (peripheral) {
-    Serial.print("Found ");
-    Serial.print(peripheral.address());
-    Serial.print(" '");
-    Serial.print(peripheral.localName());
-    Serial.print("' ");
-    Serial.print(peripheral.advertisedServiceUuid());
-    Serial.println();
-    Serial.print(peripheral.characteristicCount());
-    Serial.println();
-
-
-    // Stop scanning
-    BLE.stopScan();
-
-    readBPM(peripheral);
-
-    // Start scanning again
-    BLE.scanForUuid("19B10000-E8F2-537E-4F6C-D104768A1214");
+  int current_millis = millis();
+  if(current_millis - prev_millis >= 10 * 1000)
+  {
+    prev_millis = current_millis;
+    message += "[";
+    
+    Serial.print("size = ");
+    Serial.println(last);
+    for(int i = 0 ; i < last;i++)
+    {
+      String node = zip_json(i);
+      
+      Serial.print("node = ");
+      Serial.println(node);
+      if(node=="")
+      {
+        Serial.println("Error taking!");
+        continue;
+      }
+      message+= node;
+      if( i + 1 != last)
+        message+=",";
+    }
+    message+="]";
+    Serial.println(message);
+    Serial1.println(message);
+    signa();
+    message="";
+    Serial.println("-------------------------");
+    delay(500);
   }
 }
-
-void signa()
+int get_value(BLEDevice peripheral)
 {
-  digitalWrite(LED_BUILTIN,LOW);
-  delay(200);
-  digitalWrite(LED_BUILTIN,HIGH);
-  delay(200);
-  digitalWrite(LED_BUILTIN,LOW);
-  delay(200);
-  digitalWrite(LED_BUILTIN,HIGH);
-  delay(200);
-  digitalWrite(LED_BUILTIN,LOW);
-  delay(200);
-  digitalWrite(LED_BUILTIN,HIGH);
-  delay(200);
-}
-
-void readBPM(BLEDevice peripheral) {
   Serial.println("Connecting ...");
-
+  // Try to connect
   if (!peripheral.connect()) {
     Serial.println("Failed to connect!");
-    return;
+    return -1;
   }
 
   Serial.println("Connected");
-
   Serial.println("Discovering attributes ...");
   if (!peripheral.discoverAttributes()) {
     Serial.println("Attribute discovery failed!");
     peripheral.disconnect();
-    return;
+    return-1;
   }
 
   BLECharacteristic bpmCharacteristic = peripheral.characteristic("19b10001-e8f2-537e-4f6c-d104768a1214");
@@ -77,44 +101,43 @@ void readBPM(BLEDevice peripheral) {
   if (!bpmCharacteristic) {
     Serial.println("Peripheral does not have BPM characteristic!");
     peripheral.disconnect();
-    return;
+    return -1;
   }
 
   Serial.println("BPM characteristic found!");
 
-    while (peripheral.connected()) {
-      byte val = 0;
-      if (bpmCharacteristic.readValue(val)) { // Read the value and check if successful
-        Serial.println(val); // Print one of the bytes as an example
-        String result="";
-        
-        result+="[";
-        
-        result+="{\"id\":\"";
-        result+=peripheral.address();
-        result+="\",\"value\":";
-        result+=val;
-        result+="}";
-
-        result+=",";
-        result+="{\"id\":\"";
-        result+=peripheral.address();
-        result+="\",\"value\":";
-        result+=val;
-        result+="}";
-
-        
-        result+="]";
-        Serial.println("Encoded JSON:");
-        Serial.println(result);
-        Serial1.println(result);
-        signa();
-      } else {
-        Serial.println("Failed to read BPM value!");
-      }
-      
-      delay(5000); // Read every 5 seconds
+  if (peripheral.connected()) {
+    byte val = 0;
+    if (bpmCharacteristic.readValue(val))
+      return val;
   }
+}
 
-  Serial.println("Peripheral disconnected");
+void signa()
+{
+  digitalWrite(LED_BUILTIN,LOW);
+  delay(150);
+  digitalWrite(LED_BUILTIN,HIGH);
+  delay(150);
+  digitalWrite(LED_BUILTIN,LOW);
+  delay(150);
+  digitalWrite(LED_BUILTIN,HIGH);
+  delay(150);
+  digitalWrite(LED_BUILTIN,LOW);
+  delay(150);
+  digitalWrite(LED_BUILTIN,HIGH);
+  delay(150);
+}
+
+String zip_json(int i) {
+  Serial.println(i);
+  String result="";
+  result+="{\"id\":\"";
+  result+=mac_adderess[i];
+  result+="\",\"value\":";
+  result+=beats_per_min[i];
+  result+="}";
+  Serial.println("Encoded JSON:");
+  Serial.println(result);
+  return result;
 }
