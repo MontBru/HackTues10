@@ -48,7 +48,6 @@ public class AuthenticationService {
         List<Subclass> subclassList = request.getClasses().stream().map((c) ->{
             return subClassRepository.findByKlasAndGrade(c.getKlas(), c.getGrade()).orElse(null);
         }).toList();
-        System.out.println("alo da");
         MyUser newUser = new MyUser(request.getUsername(), request.getEmail(),
         passwordEncoder.encode(request.getPassword()), request.getDevice_id(),
                 request.getRole(), request.getNumber(), null, subclassList );

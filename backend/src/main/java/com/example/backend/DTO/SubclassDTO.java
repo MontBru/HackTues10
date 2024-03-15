@@ -2,12 +2,11 @@ package com.example.backend.DTO;
 
 import jakarta.persistence.Column;
 
-public class SubclassDTO
-{
+public class SubclassDTO {
     private String klas;
-    private int grade;
+    private String grade;
 
-    public SubclassDTO(String klas, int grade) {
+    public SubclassDTO(String klas, String grade) {
         this.klas = klas;
         this.grade = grade;
     }
@@ -20,11 +19,11 @@ public class SubclassDTO
         this.klas = klas;
     }
 
-    public int getGrade() {
+    public String getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(String grade) {
         this.grade = grade;
     }
 }

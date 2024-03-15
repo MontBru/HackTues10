@@ -17,7 +17,7 @@ public interface SubClassRepository extends JpaRepository<Subclass, Long>
             "JOIN u.hrEntries hr " +
             "JOIN u.classes c " +
             "WHERE c.klas = :klas AND c.grade = :grade AND hr.createdAt > :date")
-    List<UserAttentionDTO> getTiredStudents(String klas, int grade, LocalDate date);
+    List<UserAttentionDTO> getTiredStudents(String klas, String grade, LocalDate date);
 
     Optional<Subclass> findByKlasAndGrade(String klas, String grade);
 }
