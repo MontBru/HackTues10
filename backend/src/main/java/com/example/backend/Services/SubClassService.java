@@ -4,11 +4,15 @@ package com.example.backend.Services;
 import com.example.backend.Classes.HrEntry;
 import com.example.backend.Classes.MyUser;
 import com.example.backend.Classes.Subclass;
+import com.example.backend.DTO.UserAttentionDTO;
+import com.example.backend.DTO.UserDTO;
 import com.example.backend.Repositories.SubClassRepository;
 import com.example.backend.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -48,5 +52,11 @@ public class SubClassService {
 
         }
         return totalEvaluation;
+    }
+
+    public List<UserAttentionDTO> getTiredStudents(Subclass subclass)
+    {
+        LocalDate date = LocalDate.now().minus(1, ChronoUnit.MINUTES);
+        return subClassRepository.getTiredStudents(subclass.getKlas(),subclass.getGrade(),date);
     }
 }

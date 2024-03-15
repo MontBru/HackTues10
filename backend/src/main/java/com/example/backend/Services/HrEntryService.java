@@ -39,11 +39,11 @@ public class HrEntryService {
         }
         else
         {
-            first_cfartil = values[(values.length + 1) / 2];
+            first_cfartil = values[(values.length + 1) / 2 - 1];
         }
         if(first_cfartil % 2 == 0)
         {
-            mediana = (values[values.length/2] + values[(values.length/2) + 1]) / 2;
+            mediana = (double) (values[values.length / 2] + values[(values.length / 2)]) / 2;
         }
         else
         {
@@ -53,7 +53,7 @@ public class HrEntryService {
     }
 
     public double TakeMaxValue(int[] values){
-        int[] values2 = new int[0];
+        int[] values2 = new int[1];
         int index = 0;
 
         if(values.length == 0)
@@ -75,24 +75,23 @@ public class HrEntryService {
         }
         else
         {
-            first_cfartil = values[(values.length + 1) / 2];
+            first_cfartil = values[(values.length + 1) / 2  - 1];
         }
         if(first_cfartil % 2 == 0)
         {
-            mediana = (values[values.length/2] + values[(values.length/2) + 1]) / 2;
+            mediana = (double) (values[values.length / 2] + values[(values.length / 2)]) / 2;
         }
         else
         {
-            mediana = values[(values.length+1) / 2];
+            mediana = values[(values.length+1) / 2 - 1];
         }
         return mediana;
     }
 
     public void createHrEntryWithList(List<HREntryDTO> data) throws Exception {
-        for(int i = 0; i < data.size(); i++)
-        {
-            MyUser user = userRepository.getByDeviceId(data.get(i).getId());
-            createHrEntry(data.get(i).getValue(), user);
+        for (HREntryDTO datum : data) {
+            MyUser user = userRepository.getByDeviceId(datum.getId());
+            createHrEntry(datum.getValue(), user);
         }
     }
 

@@ -153,7 +153,7 @@ public class MyUser
 
     public UserDTO convertUserToUserDTO()
     {
-        return new UserDTO(this.getName(),this.getEmail(),this.getPassword(),this.getDevice_id(),this.getRole());
+        return new UserDTO(this.getName(),this.getEmail(),this.getDevice_id(),this.getRole());
     }
 
     @Override
