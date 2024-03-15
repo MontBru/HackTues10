@@ -3,18 +3,50 @@ import Navbar from "@/components/Navbar";
 import LinearChart from "@/components/LinearChart";
 import DatePickerField from "@/components/DatePickerField";
 import BarChart from "@/components/BarChart";
-import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {useState} from "react";
+import {CircularProgress, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
 import MetricsCard from "@/components/MetricsCard";
 import ItemsList from "@/components/ItemsList";
+import Box from "@mui/material/Box";
 
 const rubik = Rubik({ subsets: ["cyrillic"] });
 
 export default function Home() {
   const [clas, setClas] = useState("");
   const [date, setDate] = useState("");
-  const isStudent = true;
+  const [metricThisMonth, setMetricThisMonth] = useState(0);
+  const [metricThisWeek, setMetricThisWeek] = useState(0);
+  const [metricThisDay, setMetricThisDay] = useState(0);
+  const [isStudent, setIsStudent] = useState(null);
+  const [pulseData, setPulseData] = useState([]);
+  const [studentAttentionData, setStudentAttentionData] = useState([]);
+  const [subjects, setSubjects] = useState([]);
+  const [classes, setClasses] = useState([]);
+  const [classAttention, setClassAttention] = useState([]);
+  const attentionDefaultValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  useEffect(() => {
+    setMetricThisMonth(7);
+    setMetricThisWeek(6);
+    setMetricThisDay(7);
+    setIsStudent(false);
+    setPulseData([100, 75, 65, 90, 110, 130, 70]);
+    setStudentAttentionData([5, 8, 6, 9, 7, 4, 5]);
+    setSubjects(['English', "Maths", "VOT", "IOT", "Biology", "Chemistry", "History"]);
+    setClasses(["12 v", "11 V", "12 A", "10 G"]);
+    setClassAttention([5, 0, 8, 6, 9, 7, 0, 4, 5, 0]);
+  }, []);
+
+  if(isStudent === null){
+    return (
+        <div className="flex justify-center items-center min-h-screen bg-neutral-900">
+          <Box sx={{ display: 'flex', color: 'grey.500' }}>
+            <CircularProgress color="inherit" />
+          </Box>
+        </div>
+    );
+  }
 
   return (
     <main
@@ -26,16 +58,16 @@ export default function Home() {
           <DatePickerField date={date} setDate={setDate}/>
           <LinearChart
               title={"Pulse chart"}
-              labels={['English', "Maths", "VOT", "IOT", "Biology", "Chemistry", "History"]}
-              userData={[100, 75, 65, 90, 110, 130, 70]}
+              labels={subjects}
+              userData={pulseData}
               yAxisText="beats per minute"
               xAxisText="subjects"
               stepSize={10}
           />
           <BarChart
               title={"Student's attention chart"}
-              labels={['English', "Maths", "VOT", "IOT", "Biology", "Chemistry", "History"]}
-              userData={[5, 8, 6, 9, 7, 4, 5]}
+              labels={subjects}
+              userData={studentAttentionData}
               yAxisText="attention"
               xAxisText="subjects"
               datasetLabel="Student's attention"
@@ -54,9 +86,11 @@ export default function Home() {
                       label="Class"
                       onChange={(event) => setClas(event.target.value)}
                   >
-                    <MenuItem value={"12 V"}>12 V</MenuItem>
-                    <MenuItem value={"11 B"}>11 B</MenuItem>
-                    <MenuItem value={"10 G"}>10 G</MenuItem>
+                    {
+                      classes.map((clas) => (
+                        <MenuItem value={clas}>{clas}</MenuItem>
+                      ))
+                    }
                   </Select>
                 </FormControl>
               </div>
@@ -64,13 +98,13 @@ export default function Home() {
             <div className="flex flex-row pb-10">
               <Grid container spacing={10}>
                 <Grid item>
-                  <MetricsCard title="this month" attention={7}/>
+                  <MetricsCard title="this month" attention={metricThisMonth}/>
                 </Grid>
                 <Grid item>
-                  <MetricsCard title="this week" attention={6}/>
+                  <MetricsCard title="this week" attention={metricThisWeek}/>
                 </Grid>
                 <Grid item>
-                  <MetricsCard title="today" attention={7}/>
+                  <MetricsCard title="today" attention={metricThisDay}/>
                 </Grid>
               </Grid>
             </div>
@@ -79,8 +113,8 @@ export default function Home() {
               <div className="w-full">
                 <BarChart
                     title={""}
-                    labels={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-                    userData={[5, 0, 8, 6, 9, 7, 0, 4, 5, 0]}
+                    labels={attentionDefaultValues}
+                    userData={classAttention}
                     yAxisText="Number of students"
                     xAxisText="attention"
                     datasetLabel="Students paying attention"
