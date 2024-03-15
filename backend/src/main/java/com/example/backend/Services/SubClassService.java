@@ -16,6 +16,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SubClassService {
@@ -79,6 +80,11 @@ public class SubClassService {
 
         }
         return totalEvaluation;
+    }
+
+    public Map<Integer, Double> subClassStudentsAVG(int subClassID) {
+
+        return null;
     }
 
     public List<UserAttentionDTO> getTiredStudents(Subclass subclass)

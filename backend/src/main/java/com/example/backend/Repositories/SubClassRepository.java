@@ -20,4 +20,6 @@ public interface SubClassRepository extends JpaRepository<Subclass, Long>
     List<UserAttentionDTO> getTiredStudents(String klas, String grade, LocalDate date);
 
     Optional<Subclass> findByKlasAndGrade(String klas, String grade);
+
+
 }
