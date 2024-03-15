@@ -37,6 +37,8 @@ export default function Home() {
                       id="demo-simple-select"
                       value={clas}
                       label="Class"
+                      autoFocus
+                      focused={true}
                       onChange={(newClass) => setClas(newClass)}
                   >
                     <MenuItem value={"12V"}>12V</MenuItem>
@@ -62,7 +64,7 @@ export default function Home() {
             <div className="flex items-center space-x-20">
               <ItemsList list={["Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V", "Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V"]}/>
               <div className="w-full">
-                <BarChart title={""} labels={[5, 8, 6, 9, 7, 4, 5]} userData={[9, 7, 6, 5, 3, 2, 1]} yAxisText="attention" xAxisText="Number of students"/>
+                <BarChart title={""} labels={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} userData={[5, 0, 8, 6, 9, 7, 0, 4, 5, 0]} yAxisText="Number of students" xAxisText="attention"/>
               </div>
             </div>
           </div>
