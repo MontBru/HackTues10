@@ -1,24 +1,26 @@
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateField } from '@mui/x-date-pickers/DateField';
-import {useState} from "react";
+import {DatePicker} from "@mui/x-date-pickers";
 
-export default function DatePickerField() {
-    const [value, setValue] = useState(null);
-
+export default function DatePickerField({date, setDate}) {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateField
+            <DatePicker
                 label="Select Date"
-                value={value}
-                onChange={(newValue) => setValue(newValue)}
+                value={date}
+                format="DD/MM/YYYY"
+                onChange={(newValue) => setDate(newValue)}
                 inputProps={{ style: { color: 'white' } }}
                 slotProps={{
                     textField: () => ({
                         color: 'primary',
                         focused: true,
                     }),
+                    openPickerButton: {
+                        color: 'primary',
+                    },
                 }}
+
             />
         </LocalizationProvider>
     );

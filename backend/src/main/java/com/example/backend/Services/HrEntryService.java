@@ -8,6 +8,7 @@ import com.example.backend.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class HrEntryService {
 
     @Autowired
     HrEntryRepository hrEntryRepository;
+    @Autowired
     UserRepository userRepository;
 
     @Autowired
@@ -24,6 +26,13 @@ public class HrEntryService {
     public double TakeMinValue(int[] values){
         double mediana = 0;
         double first_cfartil =  0;
+        if(values.length == 0)
+            return 60;
+
+        if(values.length == 1)
+            return values[0];
+
+
         if(values.length % 2 == 0)
         {
             first_cfartil = values[values.length/2];
@@ -46,6 +55,13 @@ public class HrEntryService {
     public double TakeMaxValue(int[] values){
         int[] values2 = new int[0];
         int index = 0;
+
+        if(values.length == 0)
+            return 70;
+
+        if(values.length == 1)
+            return values[0];
+
         for(int i = values.length/2; i<values.length; i++)
         {
             values2[index] = values[i];
@@ -87,9 +103,15 @@ public class HrEntryService {
         double maxValue = TakeMaxValue(values);
 
         int evaluate = aiService.AiRequest(minValue, maxValue, value);
-
         hrEntryRepository.save(new HrEntry(new Date(), value, evaluate, user));
     }
 
 
+    public void updateHREntries(List<Long> entries, int eval)
+    {
+        for(int i = 0; i < entries.size(); i++)
+        {
+            hrEntryRepository.getReferenceById(entries.get(i)).setEvaluation(eval);
+        }
+    }
 }

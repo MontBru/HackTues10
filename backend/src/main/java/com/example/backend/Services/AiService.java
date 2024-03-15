@@ -45,7 +45,7 @@ public class AiService {
 
         String evalString = jsonResponse.replace("{\"evaluation\":", "");
         evalString = evalString.replace("}","");
-        int evaluation = Integer.getInteger(evalString);
+        int evaluation = Integer.parseInt(evalString);
 
         return evaluation;
     }

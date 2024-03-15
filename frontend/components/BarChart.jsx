@@ -1,68 +1,6 @@
-// import React from 'react';
-// import { Bar } from 'react-chartjs-2';
-//
-// export default function BarChart({title, labels, userData}) {
-//     const options = {
-//         responsive: true,
-//         interaction: {
-//             mode: 'index',
-//             intersect: false,
-//         },
-//         stacked: false,
-//         plugins: {
-//             legend: {
-//                 labels: {
-//                     color: "white"
-//                 }
-//             },
-//             title: {
-//                 display: true,
-//                 text: title,
-//                 color: "white",
-//                 font: {
-//                     size: 30
-//                 }
-//             },
-//         },
-//         scales: {
-//             y: {
-//                 ticks: {
-//                     color: "white",
-//                     stepSize: 10,
-//                 },
-//                 type: 'linear',
-//                 display: true,
-//                 position: 'left',
-//                 beginAtZero: true
-//             },
-//             x: {
-//                 ticks: {
-//                     color: "white",
-//                 }
-//             }
-//         },
-//     };
-//
-//     const data = () => {
-//         return {
-//             labels,
-//             datasets: [
-//                 {
-//                     label: 'Heart rate',
-//                     data: userData,
-//                     borderColor: 'rgba(244, 52, 84, 255)',
-//                     fill: true,
-//                     backgroundColor: 'rgba(244, 52, 84, 255)',
-//                     yAxisID: 'y',
-//                 },
-//             ],
-//         }
-//     };
-//
-//     return <Bar options={options} data={data()} />;
-// }
-
 import {Bar} from "react-chartjs-2";
+import deferredPlugin from 'chartjs-plugin-deferred';
+
 import {
     Chart as ChartJS,
     BarElement,
@@ -72,6 +10,7 @@ import {
 } from 'chart.js';
 
 ChartJS.register(
+    deferredPlugin,
     BarElement,
     CategoryScale,
     LinearScale,
@@ -79,12 +18,12 @@ ChartJS.register(
     Legend
 );
 
-const BarChart = ({title, labels, userData}) => {
+const BarChart = ({title, labels, userData, xAxisText, yAxisText, datasetLabel}) => {
     const data = {
         labels: labels,
         datasets: [
             {
-                label: 'Student interest',
+                label: datasetLabel,
                 data: userData,
                 backgroundColor: 'rgba(244, 52, 84, 150)',
             }
@@ -104,10 +43,15 @@ const BarChart = ({title, labels, userData}) => {
             title: {
                 display: true,
                 text: title,
+                align: "start",
                 color: "white",
                 font: {
                     size: 30
                 }
+            },
+            deferred: {
+                enabled: true,
+                yOffset: '70%', // defer until 70% of the canvas height are inside the viewport
             },
         },
         scales: {
@@ -118,11 +62,29 @@ const BarChart = ({title, labels, userData}) => {
                 },
                 display: true,
                 position: 'left',
-                beginAtZero: true
+                beginAtZero: true,
+                title: {
+                    text: yAxisText,
+                    display: true,
+                    color: "white",
+                    padding: 10,
+                    font: {
+                        size: 16
+                    }
+                }
             },
             x: {
                 ticks: {
                     color: "white",
+                },
+                title: {
+                    text: xAxisText,
+                    display: true,
+                    color: "white",
+                    padding: 10,
+                    font: {
+                        size: 16
+                    }
                 }
             }
         },
