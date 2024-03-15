@@ -1,4 +1,6 @@
 import {Bar} from "react-chartjs-2";
+import deferredPlugin from 'chartjs-plugin-deferred';
+
 import {
     Chart as ChartJS,
     BarElement,
@@ -8,6 +10,7 @@ import {
 } from 'chart.js';
 
 ChartJS.register(
+    deferredPlugin,
     BarElement,
     CategoryScale,
     LinearScale,
@@ -15,12 +18,12 @@ ChartJS.register(
     Legend
 );
 
-const BarChart = ({title, labels, userData, xAxisText, yAxisText}) => {
+const BarChart = ({title, labels, userData, xAxisText, yAxisText, datasetLabel}) => {
     const data = {
         labels: labels,
         datasets: [
             {
-                label: "Student's attention",
+                label: datasetLabel,
                 data: userData,
                 backgroundColor: 'rgba(244, 52, 84, 150)',
             }
@@ -40,10 +43,15 @@ const BarChart = ({title, labels, userData, xAxisText, yAxisText}) => {
             title: {
                 display: true,
                 text: title,
+                align: "start",
                 color: "white",
                 font: {
                     size: 30
                 }
+            },
+            deferred: {
+                enabled: true,
+                yOffset: '70%', // defer until 70% of the canvas height are inside the viewport
             },
         },
         scales: {

@@ -19,11 +19,11 @@
    then put your PC's IP address in SERVER_IP below, port 9080 (instead of default 80):
 */
 //#define SERVER_IP "10.0.1.7:9080" // PC address with emulation on host
-#define SERVER_IP "192.168.43.61:5000"
+#define SERVER_IP "192.168.161.150:8081"
 
 #ifndef STASSID
-#define STASSID "Galaxy A51BF86"
-#define STAPSK "ndff6393"
+#define STASSID "Stefan"
+#define STAPSK ""
 #endif
 
 void signa()
@@ -66,11 +66,11 @@ void loop() {
     HTTPClient http;
 
     // configure traged server and url
-    http.begin(client, "http://" SERVER_IP "/test");  // HTTP
+    http.begin(client, "http://" SERVER_IP "/hrEntry/createEntry");  // HTTP
     http.addHeader("Content-Type", "application/json");
     int httpCode;
     while(Serial.available()) {
-        signa();
+        
         char receivedChar = Serial.read(); // Read a single character
         static String receivedString; // Declare a static String to accumulate characters
 
@@ -80,6 +80,7 @@ void loop() {
         // Check if the received character is a newline (end of message)
         if (receivedChar == '\n') {
             // Process the complete string
+            signa();
             httpCode = http.POST(receivedString);
         }
     }
