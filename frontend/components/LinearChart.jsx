@@ -1,4 +1,3 @@
-import React, {useState} from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -23,7 +22,7 @@ ChartJS.register(
     Filler
 );
 
-export default function LinearChart({title, labels, userData, yAxisText, xAxisText}) {
+export default function LinearChart({title, labels, userData, yAxisText, xAxisText, stepSize}) {
     const options = {
         responsive: true,
         interaction: {
@@ -53,7 +52,7 @@ export default function LinearChart({title, labels, userData, yAxisText, xAxisTe
             y: {
                 ticks: {
                     color: "white",
-                    stepSize: 10,
+                    stepSize: stepSize,
                 },
                 type: 'linear',
                 display: true,

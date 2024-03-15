@@ -1,13 +1,12 @@
 import Navbar from "@/components/Navbar";
-import DatePickerField from "@/components/DatePickerField";
 import LinearChart from "@/components/LinearChart";
-import BarChart from "@/components/BarChart";
-import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {Fab} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import MetricsCard from "@/components/MetricsCard";
-import ItemsList from "@/components/ItemsList";
 import {Rubik} from "next/font/google";
 import {useState} from "react";
+import ChangeEvalPopup from "@/components/ChangeEvalPopup";
+import EditIcon from "@mui/icons-material/Edit";
 
 const rubik = Rubik({ subsets: ["cyrillic"] });
 
@@ -19,11 +18,18 @@ export default function StudentPage({student}) {
     const [clas, setClas] = useState("");
     const isStudent = false;
 
+    const [showPopup, setShowPopup] = useState(false);
+    const mockData = [{subjectName:"Maths", entryIds: [5,1], attention: 5},{subjectName:"BEL", entryIds: [2,4], attention: 6}, {subjectName:"AE", entryIds: [3,6,7], attention: 4}]
+
     return (
         <main
-            className={`flex min-h-screen flex-col items-center bg-neutral-900 px-10 space-y-10 pb-20 ${rubik.className}`}
+            className={`flex min-h-screen flex-col items-center bg-neutral-900 px-10 space-y-10 ${rubik.className}`}
         >
             <Navbar isStudent={isStudent}/>
+            <ChangeEvalPopup isOpen={showPopup} onClose={()=>{setShowPopup(false)}} evaluations={mockData}/>
+            <Fab aria-label="edit" onClick={()=>{setShowPopup(true)}} className="absolute bottom-10 right-10">
+                <EditIcon color="primary" />
+            </Fab>
             <div className="flex flex-col space-y-5">
                 <p className="flex justify-center text-3xl text-neutral-300 pb-5">{tmpStudent.name}'s attention</p>
                 <div className="flex flex-row pb-10">
@@ -44,10 +50,11 @@ export default function StudentPage({student}) {
                         <LinearChart
                             title={"This year"}
                             labels={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-                            userData={[100, 75, 65, 90, 110, 130, 70, 60, 140, 80]}
+                            userData={[9, 4, 6, 7, 8, 5, 3, 4, 6, 7]}
                             yAxisText="attention"
                             xAxisText="time"
                             datasetLabel="Students paying attention"
+                            stepSize={1}
                         />
                     </div>
                 </div>

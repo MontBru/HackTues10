@@ -8,8 +8,8 @@ const ChangeEvalPopup = ({ isOpen, onClose, evaluations }) => {
     return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-gray-800 opacity-75"></div>
+        <div className="fixed inset-0 z-40 flex items-center justify-center">
+          <div className="absolute -inset-10 bg-neutral-900 opacity-75"></div>
           <div className="relative p-8 bg-neutral-800 rounded-lg shadow-lg">
             <button
               className="absolute top-0 right-0 m-4 text-white hover:text-gray-800"
