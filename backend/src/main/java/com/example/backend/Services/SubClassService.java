@@ -4,16 +4,19 @@ package com.example.backend.Services;
 import com.example.backend.Classes.HrEntry;
 import com.example.backend.Classes.MyUser;
 import com.example.backend.Classes.Subclass;
+import com.example.backend.DTO.UserAttentionDTO;
 import com.example.backend.Repositories.SubClassRepository;
 import com.example.backend.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SubClassService {

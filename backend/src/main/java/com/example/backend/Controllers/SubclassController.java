@@ -1,9 +1,14 @@
 package com.example.backend.Controllers;
 
 
+import com.example.backend.Classes.Subclass;
+import com.example.backend.DTO.UserAttentionDTO;
 import com.example.backend.Services.SubClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/subclass")
@@ -14,7 +19,7 @@ public class SubclassController {
 
 
     @GetMapping(path = "/subClassAVG")
-    public double subClassAVG(@RequestBody Long subClassID,@RequestBody String zone)
+    public double subClassAVG(@RequestBody int subClassID,@RequestBody String zone)
     {
         return subClassService.subClassAVG(subClassID, zone);
     }
