@@ -22,7 +22,7 @@ public class Subclass
     private String klas;
 
     @Column(name = "grade")
-    private int grade;
+    private String grade;
 
     @ManyToOne
     @JsonManagedReference
@@ -40,13 +40,13 @@ public class Subclass
 
     public Subclass() {}
 
-    public Subclass(Long id, String klas, int grade) {
+    public Subclass(Long id, String klas, String grade) {
         this.id = id;
         this.klas = klas;
         this.grade = grade;
     }
 
-    public Subclass(Long id, String klas, int grade, List<Subject> subjects) {
+    public Subclass(Long id, String klas, String grade, List<Subject> subjects) {
         this.id = id;
         this.klas = klas;
         this.grade = grade;
@@ -71,11 +71,11 @@ public class Subclass
         this.klas = klas;
     }
 
-    public int getGrade() {
+    public String getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(String grade) {
         this.grade = grade;
     }
 

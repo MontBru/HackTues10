@@ -11,6 +11,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Switch } from '@mui/material';
 import MultipleSelectChip from '@/components/ChipSelect';
+import Registration from '@/services/Authentication/Registration';
+import { useRouter } from 'next/router';
 
 const theme = createTheme({
     palette: {
@@ -59,7 +61,7 @@ const theme = createTheme({
     });
 
 export default function Register(){
-
+    const router = useRouter();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -67,18 +69,40 @@ export default function Register(){
         const email = data.get('email');
         const password = data.get('password');
         const name = data.get('name');
+        let classs = [];
+        let grades = []; 
+        let device_id = 0;
+        let class_num = 0; 
         if(isTeacher)
         {
             console.log({email, password, name, classes});
+            classes.map((c) => {
+                const [clas, grade] = c.split(" ");
+                // classs.push(clas)
+                // grades.push(grade)
+                classs.push({
+                    klas : clas,
+                    grade : grade
+                })
+            })
         }
         else
         {
-            const device_id = data.get('device_id');
-            const class_num = data.get('classNum');
-            const classs = data.get('class');
-            const grade = data.get('grade');
-            console.log({email, password, name, device_id, class_num, classs, grade})
+            device_id = data.get('device_id');
+            class_num = data.get('classNum');
+            // classs = data.get('class');
+            // grades = data.get('grade');
+            classs.push({
+                klas: data.get('class'),
+                grade: data.get('grade')
+            })
+            console.log({email, password, name, device_id, class_num, classs, grades})
         }
+        const role = isTeacher ? 0 : 1
+        const data1 = await Registration(name, email, password, class_num, device_id, classs, role)
+        sessionStorage.setItem("jwtAccess", data1.token)
+        router.push("http://localhost:3000/")
+    
     };
 
     const [isTeacher, setIsTeacher] = React.useState(false)

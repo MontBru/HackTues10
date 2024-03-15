@@ -3,7 +3,7 @@ import { create } from 'zustand';
 
 
 
-const useUserStore = create<Store>((set) => ({
+const useUserStore = create((set) => ({
     me: { 
         username: "",
         email: "",

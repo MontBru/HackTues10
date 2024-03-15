@@ -86,14 +86,28 @@ void readBPM(BLEDevice peripheral) {
       byte val = 0;
       if (bpmCharacteristic.readValue(val)) { // Read the value and check if successful
         Serial.println(val); // Print one of the bytes as an example
-        StaticJsonDocument<200> jsonDocument; // Adjust the size as needed
-        jsonDocument["BPM"] = val;
-        jsonDocument["ID"] = peripheral.address();
-        String jsonString;
-        serializeJson(jsonDocument, jsonString);
+        String result="";
+        
+        result+="[";
+        
+        result+="{\"id\":\"";
+        result+=peripheral.address();
+        result+="\",\"value\":";
+        result+=val;
+        result+="}";
+
+        result+=",";
+        result+="{\"id\":\"";
+        result+=peripheral.address();
+        result+="\",\"value\":";
+        result+=val;
+        result+="}";
+
+        
+        result+="]";
         Serial.println("Encoded JSON:");
-        Serial.println(jsonString);
-        Serial1.println(jsonString);
+        Serial.println(result);
+        Serial1.println(result);
         signa();
       } else {
         Serial.println("Failed to read BPM value!");
