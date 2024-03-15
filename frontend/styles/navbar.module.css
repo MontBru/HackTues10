@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    justify-content: end; /* Default value */
+    
+    width: 100%;
+    transition: width 2s ease;
+    /* transition-delay: 5s ; */
+    
+}
+  
+  .container.centered {
+    width: 100px;  
+    /* border-radius: 10px;
+    display: flex;
+    background-color: #262626;
+    justify-content: center; */
+  
+  } 
+
+

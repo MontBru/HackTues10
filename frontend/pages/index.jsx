@@ -8,6 +8,7 @@ import {useState} from "react";
 import Grid from "@mui/material/Grid";
 import MetricsCard from "@/components/MetricsCard";
 import ItemsList from "@/components/ItemsList";
+import ChangeEvalPopup from "@/components/ChangeEvalPopup";
 
 const rubik = Rubik({ subsets: ["cyrillic"] });
 
@@ -16,11 +17,20 @@ export default function Home() {
   const [date, setDate] = useState("");
   const isStudent = false;
 
+  const [showPopup, setShowPopup] = useState(false);
+  const mockData = [{subjectName:"Maths", entryIds: [5,1], attention: 5},{subjectName:"BEL", entryIds: [2,4], attention: 6}, {subjectName:"AE", entryIds: [3,6,7], attention: 4}]
+
+
+
   return (
     <main
       className={`flex min-h-screen flex-col items-center bg-neutral-900 px-10 space-y-10 pb-20 ${rubik.className}`}
     >
-      <Navbar isStudent={isStudent}/>
+      <Navbar isStudent={isStudent} islive={false}/>
+      <ChangeEvalPopup isOpen={showPopup} onClose={()=>{setShowPopup(false)}} evaluations={mockData}/>
+      <button className="bg-white" onClick={()=>{setShowPopup(true)}}>
+        Change Eval
+      </button>
       { isStudent ?
         <div className="flex flex-col items-center justify-between w-full space-y-10 sm:px-80">
           <DatePickerField date={date} setDate={setDate}/>
