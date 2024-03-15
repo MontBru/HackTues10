@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,17 +28,27 @@ public class SubClassService {
 
     public double subClassAVG(Long subClassID, String zone){
         Subclass SubClass = subClassRepository.findById(subClassID).orElse(null);
-        Date dateTimeLimit = new Date();
-        Calendar calendar = Calendar.getInstance();
+        LocalDateTime dateTimeLimit = LocalDateTime.now();
+        /*Calendar calendar = Calendar.getInstance();
         if (zone.equals("month")) {
              calendar.add(Calendar.MONTH, -1);
         } else if (zone.equals("week")) {
             calendar.add(Calendar.WEEK_OF_MONTH, -1);
         } else {
             calendar.add(Calendar.DAY_OF_WEEK, -1);
+        }*/
+        if(zone.equals("mounth"))
+        {
+            dateTimeLimit = dateTimeLimit.minus(1,ChronoUnit.MONTHS);
         }
-
-        dateTimeLimit = calendar.getTime();
+        else if(zone.equals("week"))
+        {
+            dateTimeLimit = dateTimeLimit.minus(1,ChronoUnit.WEEKS);
+        }
+        else
+        {
+            dateTimeLimit = dateTimeLimit.minus(1,ChronoUnit.DAYS);
+        }
 
         double totalEvaluation = 0;
         int totalCount = 0;
@@ -50,7 +61,7 @@ public class SubClassService {
             for(MyUser user : users) {
                 if(user.getClasses().contains(SubClass)) {
                     for(HrEntry hr : user.getHrEntries()) {
-                        if(hr.getCreatedAt().after(dateTimeLimit))
+                        if(hr.getCreatedAt().isAfter(dateTimeLimit))
                         {
                             totalEvaluation += hr.getEvaluation();
                             totalCount++;

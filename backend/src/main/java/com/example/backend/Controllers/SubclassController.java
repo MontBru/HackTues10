@@ -2,6 +2,7 @@ package com.example.backend.Controllers;
 
 
 import com.example.backend.Classes.Subclass;
+import com.example.backend.DTO.SubclassDTO;
 import com.example.backend.DTO.UserAttentionDTO;
 import com.example.backend.DTO.UserDTO;
 import com.example.backend.Services.SubClassService;

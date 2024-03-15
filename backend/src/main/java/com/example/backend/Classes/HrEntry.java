@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -17,7 +18,7 @@ public class HrEntry {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name= "value")
     private int value;
@@ -31,7 +32,7 @@ public class HrEntry {
 
     public HrEntry() {}
 
-    public HrEntry( Date createdAt, int value, int evaluation, MyUser user) {
+    public HrEntry( LocalDateTime createdAt, int value, int evaluation, MyUser user) {
 
         this.createdAt = createdAt;
         this.value = value;
@@ -48,11 +49,11 @@ public class HrEntry {
         this.id = id;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
