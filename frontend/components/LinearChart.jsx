@@ -21,7 +21,7 @@ ChartJS.register(
     Legend
 );
 
-export default function LinearChart({title, labels, userData}) {
+export default function LinearChart({title, labels, userData, yAxisText, xAxisText}) {
     const options = {
         responsive: true,
         interaction: {
@@ -55,11 +55,29 @@ export default function LinearChart({title, labels, userData}) {
                 type: 'linear',
                 display: true,
                 position: 'left',
-                beginAtZero: true
+                beginAtZero: true,
+                title: {
+                    text: yAxisText,
+                    display: true,
+                    color: "white",
+                    padding: 10,
+                    font: {
+                        size: 16
+                    }
+                }
             },
             x: {
                 ticks: {
                     color: "white",
+                },
+                title: {
+                    text: xAxisText,
+                    display: true,
+                    color: "white",
+                    padding: 10,
+                    font: {
+                        size: 16
+                    }
                 }
             }
         },
