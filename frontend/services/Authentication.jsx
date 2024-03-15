@@ -1,8 +1,9 @@
+import { urlServer } from '@/constants';
 import axios from 'axios';
 
 const Authentication = async ({ email, password }) => {
     try {
-        const response = await axios.post('http://localhost:8080/auth/authentication', {
+        const response = await axios.post(urlServer + 'auth/authentication', {
             email: email,
             password: password
         });
