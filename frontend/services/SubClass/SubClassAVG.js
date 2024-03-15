@@ -13,7 +13,7 @@ export const getSubClassAVG = async (subclassID, zone) => {
             console.log(data)
 
         }
-
+        
 
         return data;
     }catch(error)
