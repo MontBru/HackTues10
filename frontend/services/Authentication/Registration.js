@@ -1,7 +1,9 @@
 
 import { axiosInstance } from '@/Helpers/FetchHelper';
+import { urlServer } from '@/constants';
 import { responseEncoding } from 'axios';
 import React from 'react'
+
 
 
 
@@ -10,7 +12,7 @@ const Registration = async (name, email, password, class_num, device_id, classes
     
     console.log(name)
     try{
-        const response = await axiosInstance.post('http://localhost:8080/auth/register', {
+        const response = await axiosInstance.post(`${urlServer}auth/register`, {
             username: name,
             email : email,
             password : password,

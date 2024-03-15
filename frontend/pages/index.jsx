@@ -15,7 +15,7 @@ import { getSubClassAVG } from "@/services/SubClass/SubClassAVG";
 const rubik = Rubik({ subsets: ["cyrillic"] });
 
 export default function Home() {
-  const [clas, setClas] = useState("");
+  const [clas, setClas] = useState("12 v");
   const [date, setDate] = useState("");
   const [metricThisMonth, setMetricThisMonth] = useState(0);
   const [metricThisWeek, setMetricThisWeek] = useState(0);
