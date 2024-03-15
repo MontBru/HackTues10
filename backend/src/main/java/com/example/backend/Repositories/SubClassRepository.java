@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface SubClassRepository extends JpaRepository<Subclass, Long> {
     Optional<Subclass> findByKlasAndGrade(String klas, String grade);
+
+
 }

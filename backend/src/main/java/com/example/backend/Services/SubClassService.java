@@ -14,6 +14,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SubClassService {
@@ -24,8 +25,9 @@ public class SubClassService {
     @Autowired
     UserRepository userRepository;
 
-    public double subClassAVG(Long subClassID, String zone){
-        Subclass SubClass = subClassRepository.findById(subClassID).orElse(null);
+    public double subClassAVG(int subClassID, String zone){
+        System.out.println("I am in here");
+        Subclass SubClass = subClassRepository.findById((long) subClassID).orElse(null);
         Date dateTimeLimit = new Date();
         Calendar calendar = Calendar.getInstance();
         if (zone.equals("month")) {
@@ -65,5 +67,10 @@ public class SubClassService {
 
         }
         return totalEvaluation;
+    }
+
+    public Map<Integer, Double> subClassStudentsAVG(int subClassID) {
+
+        return null;
     }
 }

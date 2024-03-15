@@ -13,6 +13,7 @@ import { Switch } from '@mui/material';
 import MultipleSelectChip from '@/components/ChipSelect';
 import Registration from '@/services/Authentication/Registration';
 import { useRouter } from 'next/router';
+import useUserStore from '@/Storages/UserStorage';
 
 const theme = createTheme({
     palette: {
@@ -62,6 +63,7 @@ const theme = createTheme({
 
 export default function Register(){
     const router = useRouter();
+    const {me, setMe} = useUserStore(); 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -101,6 +103,7 @@ export default function Register(){
         const role = isTeacher ? 0 : 1
         const data1 = await Registration(name, email, password, class_num, device_id, classs, role)
         sessionStorage.setItem("jwtAccess", data1.token)
+        setMe(data1.user)
         router.push("http://localhost:3000/")
     
     };
