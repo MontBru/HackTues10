@@ -92,4 +92,11 @@ public class HrEntryService {
     }
 
 
+    public void updateHREntries(List<Long> entries, int eval)
+    {
+        for(int i = 0; i < entries.size(); i++)
+        {
+            hrEntryRepository.getReferenceById(entries.get(i)).setEvaluation(eval);
+        }
+    }
 }

@@ -25,7 +25,7 @@ export default function Home() {
     <main
       className={`flex min-h-screen flex-col items-center bg-neutral-900 px-10 space-y-10 pb-20 ${rubik.className}`}
     >
-      <Navbar isStudent={isStudent}/>
+      <Navbar isStudent={isStudent} islive={false}/>
       <ChangeEvalPopup isOpen={showPopup} onClose={()=>{setShowPopup(false)}} evaluations={mockData}/>
       <button className="bg-white" onClick={()=>{setShowPopup(true)}}>
         Change Eval

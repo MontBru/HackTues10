@@ -2,13 +2,16 @@ import { Rubik } from "next/font/google";
 import Card from "@/components/Card";
 import Grid from "@mui/material/Grid";
 import ListElement from "@/components/ListElement";
+import Navbar from "@/components/Navbar";
 
 const rubik = Rubik({ subsets: ["cyrillic"] });
 
 export default function Live_page()
 {
+    
     return (
         <div className="bg-neutral-900 px-10 space-y-10 pb-20">
+        <Navbar isStudent={false} islive={true}/>
         <main
             className={`flex  flex-col items-center ${rubik.className}`}
         >
