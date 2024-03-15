@@ -19,7 +19,7 @@ export default function Home() {
     <main
       className={`flex min-h-screen flex-col items-center bg-neutral-900 px-10 space-y-10 pb-20 ${rubik.className}`}
     >
-      <Navbar isStudent={isStudent}/>
+      <Navbar isStudent={isStudent} islive={false}/>
       { isStudent ?
         <div className="flex flex-col items-center justify-between w-full space-y-10 sm:px-80">
           <DatePickerField/>
