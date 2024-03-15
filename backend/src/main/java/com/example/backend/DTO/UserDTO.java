@@ -7,6 +7,8 @@ public class UserDTO
     private String device_id;
     private int role;
 
+
+
     public UserDTO(String name, String email, String device_id, int role) {
         this.name = name;
         this.email = email;

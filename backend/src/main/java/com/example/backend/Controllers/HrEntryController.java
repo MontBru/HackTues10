@@ -30,7 +30,7 @@ public class HrEntryController
         hrEntryService.createHrEntryTimestamp(data,timestamp);
     }
 
-    @PutMapping("/updateEval/{eval}")
+    @PatchMapping("/updateEval/{eval}")
     public void updateEval(@RequestBody List<Long> entries, @PathVariable int eval)
     {
         hrEntryService.updateHREntries(entries,eval);

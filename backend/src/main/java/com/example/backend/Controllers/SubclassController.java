@@ -26,10 +26,10 @@ public class SubclassController {
         return subClassService.subClassAVG(klas, grade, zone);
     }
 
-    @GetMapping("/studentsWithLostAttention")
-    public List<UserAttentionDTO> studentsTired(@RequestParam Subclass subclass)
+    @GetMapping("/studentsWithLostAttention/{klas}/{grade}")
+    public List<UserAttentionDTO> studentsTired(@PathVariable String klas, @PathVariable String grade)
     {
-        return subClassService.getTiredStudents(subclass);
+        return subClassService.getTiredStudents(klas, grade);
     }
 
     @GetMapping(path = "/subClassStudentsAVG/{subClassID}" )

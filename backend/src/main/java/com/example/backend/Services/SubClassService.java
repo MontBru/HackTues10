@@ -88,9 +88,18 @@ public class SubClassService {
         return null;
     }
 
-    public List<UserAttentionDTO> getTiredStudents(Subclass subclass)
+    public List<UserAttentionDTO> getTiredStudents(String klas, String grade)
     {
-        LocalDate date = LocalDate.now().minus(1, ChronoUnit.MINUTES);
-        return subClassRepository.getTiredStudents(subclass.getKlas(),subclass.getGrade(),date);
+        Subclass subclass = subClassRepository.findByKlasAndGrade(klas, grade).orElse(null);
+        if(subclass!= null)
+        {
+            LocalDate date = LocalDate.now().minus(1, ChronoUnit.MINUTES);
+            return subClassRepository.getTiredStudents(subclass.getKlas(),subclass.getGrade(),date);
+        }
+        else
+        {
+            return null;
+        }
+
     }
 }
