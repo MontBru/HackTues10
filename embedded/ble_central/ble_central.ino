@@ -44,7 +44,8 @@ void loop() {
         mac_adderess[last++] = peripheral.address();
       }
       peripheral.disconnect();
-      //zip_json(va);
+      //BLE.scanForUuid("19b10000-e8f2-537e-4f6c-d104768a1214");
+      
   }
 
   int current_millis = millis();
@@ -74,9 +75,22 @@ void loop() {
     Serial.println(message);
     Serial1.println(message);
     signa();
+    String receivedString;
+    while(Serial1.available())
+    {
+      char receivedChar = Serial1.read(); // Read a single c
+      receivedString+=receivedChar;
+      if (receivedChar == '\n')
+      {
+        Serial.println(receivedString);
+        break;
+      }
+    }
+    last = 0;
     message="";
     Serial.println("-------------------------");
     delay(500);
+    BLE.scanForUuid("19b10000-e8f2-537e-4f6c-d104768a1214");
   }
 }
 int get_value(BLEDevice peripheral)
@@ -85,7 +99,7 @@ int get_value(BLEDevice peripheral)
   // Try to connect
   if (!peripheral.connect()) {
     Serial.println("Failed to connect!");
-    return -1;
+    return 0;
   }
 
   Serial.println("Connected");
@@ -93,7 +107,7 @@ int get_value(BLEDevice peripheral)
   if (!peripheral.discoverAttributes()) {
     Serial.println("Attribute discovery failed!");
     peripheral.disconnect();
-    return-1;
+    return 0;
   }
 
   BLECharacteristic bpmCharacteristic = peripheral.characteristic("19b10001-e8f2-537e-4f6c-d104768a1214");
@@ -101,7 +115,7 @@ int get_value(BLEDevice peripheral)
   if (!bpmCharacteristic) {
     Serial.println("Peripheral does not have BPM characteristic!");
     peripheral.disconnect();
-    return -1;
+    return 0;
   }
 
   Serial.println("BPM characteristic found!");
@@ -133,7 +147,7 @@ String zip_json(int i) {
   Serial.println(i);
   String result="";
   result+="{\"id\":\"";
-  result+=mac_adderess[i];
+  result+="100";
   result+="\",\"value\":";
   result+=beats_per_min[i];
   result+="}";

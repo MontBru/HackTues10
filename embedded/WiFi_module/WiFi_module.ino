@@ -69,10 +69,13 @@ void loop() {
     http.begin(client, "http://" SERVER_IP "/hrEntry/createEntry");  // HTTP
     http.addHeader("Content-Type", "application/json");
     int httpCode;
+    // httpCode = http.POST("[{\"id\":\"100\",\"value\":60}]");
+    // delay(10000)
+    String receivedString;
     while(Serial.available()) {
         
         char receivedChar = Serial.read(); // Read a single character
-        static String receivedString; // Declare a static String to accumulate characters
+         // Declare a static String to accumulate characters
 
         // Append the received character to the string
         receivedString += receivedChar;
@@ -81,6 +84,7 @@ void loop() {
         if (receivedChar == '\n') {
             // Process the complete string
             signa();
+            Serial.println(receivedString);
             httpCode = http.POST(receivedString);
         }
     }
