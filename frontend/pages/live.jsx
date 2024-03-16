@@ -21,6 +21,10 @@ export default function Live() {
             setStudents(["Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V", "Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V"]);
             const [klas, grade] = clas.split(" ");
             const NOinterestedUsers = await getLiveUserAttention(klas, grade)
+            NOinterestedUsers.filter((user)=>{
+                return user.evaluation !== null && user.evaluation !== undefined;
+            })
+            console.log(NOinterestedUsers)
             setStudentsNoInterest(NOinterestedUsers);
         }
 
