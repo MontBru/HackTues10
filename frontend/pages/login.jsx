@@ -72,11 +72,11 @@ export default function Login() {
         email: data.get('email'),
         password: data.get('password'),
       });
-      sessionStorage.setItem("jwtAccess", data1.token)
-      console.log(data1)
+      sessionStorage.setItem("jwtAccess", data1.token);
+      console.log(data1);
 
-      setMe(data1.user)
-      router.push("http://localhost:3000/")
+      setMe(data1.user);
+      router.push("/");
     } catch (error) {
       console.error(error);
     }

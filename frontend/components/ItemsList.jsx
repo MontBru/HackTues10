@@ -8,10 +8,12 @@ import Link from "next/link";
 function renderRow(list) {
     return function RenderRow(props) {
         const { index, style } = props;
-        const item = list[index];
+        const item = list[index].name;
 
         return (
-            <Link href={`/student/${index}`}>
+            <Link href={{pathname: `/student`, query: {id: `${list[index].id}`, name: `${list[index].name}` }}}>`
+            {/*// <Link href={`/student/${list[index].id}/${list[index].name}`}>*/}
+
                 <ListItem style={style} key={index} component="div" disablePadding>
                     <ListItemButton>
                         <ListItemText primary={item} sx={{ color: 'rgba(200, 200, 200, 255)', display: "flex",  justifyContent: "center"}}/>
