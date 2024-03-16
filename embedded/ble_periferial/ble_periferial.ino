@@ -12,7 +12,7 @@ int Threshold = 67;
 
 void setup() {
   Serial.begin(115200);
-  while (!Serial);
+  //while (!Serial);
     // begin initialization
   if (!BLE.begin()) {
     Serial.println("starting Bluetooth® Low Energy module failed!");
