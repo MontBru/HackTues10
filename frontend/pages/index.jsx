@@ -30,7 +30,7 @@ export default function Home() {
   const {me, setMe} = useUserStore(); 
 
   useEffect(() => {
-    
+    console.log(me)
     const fetch = async () => {
       if(clas != null || clas != '' || clas != undefined )
       {

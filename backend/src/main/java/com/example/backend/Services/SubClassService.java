@@ -65,6 +65,7 @@ public class SubClassService {
                     for(HrEntry hr : user.getHrEntries()) {
                         if(hr.getCreatedAt().isAfter(dateTimeLimit))
                         {
+                            System.out.println("Ai me na");
                             totalEvaluation += hr.getEvaluation();
                             totalCount++;
                         }
@@ -77,8 +78,13 @@ public class SubClassService {
         }
         if(totalCount > 0)
         {
+            System.out.println("Hello 2.0");
             totalEvaluation/=totalCount;
 
+        }
+        else
+        {
+            System.out.println("Hello 3.0");
         }
         return totalEvaluation;
     }
@@ -88,9 +94,18 @@ public class SubClassService {
         return null;
     }
 
-    public List<UserAttentionDTO> getTiredStudents(Subclass subclass)
+    public List<UserAttentionDTO> getTiredStudents(String klas, String grade)
     {
-        LocalDate date = LocalDate.now().minus(1, ChronoUnit.MINUTES);
-        return subClassRepository.getTiredStudents(subclass.getKlas(),subclass.getGrade(),date);
+        Subclass subclass = subClassRepository.findByKlasAndGrade(klas, grade).orElse(null);
+        if(subclass!= null)
+        {
+            LocalDateTime date = LocalDateTime.now().minusSeconds(5);
+            return subClassRepository.getTiredStudents(subclass.getKlas(),subclass.getGrade(),date);
+        }
+        else
+        {
+            return null;
+        }
+
     }
 }
