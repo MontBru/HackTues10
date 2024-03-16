@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +22,8 @@ public interface SubjectRepository  extends JpaRepository<Stats, Long> {
             "JOIN s.class_subjects c " +
             "JOIN c.user_class u " +
             "JOIN u.hrEntries h " +
-            "WHERE s.id = :id AND s.startedAt < :date AND s.endedAt > :date")
-    List<SubjectAttentionDTO> getSubjectHREntries(@Param("id") Long id, @Param("date") LocalDate date);
+            "WHERE u.id = :id AND  h.createdAt > :d1 AND h.createdAt < :d2")
+    List<SubjectAttentionDTO> getSubjectHREntries(@Param("id") Long id, @Param("d1") LocalDateTime d1, @Param("d2") LocalDateTime d2);
 
 
 

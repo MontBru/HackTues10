@@ -30,7 +30,7 @@ export default function Live() {
 
         const interval = setInterval(() => {
             fetchData();
-        }, 60000); //timeout is in miliseconds
+        }, 5000); //timeout is in miliseconds
 
         fetchData();
         return () => clearInterval(interval);
@@ -61,17 +61,17 @@ export default function Live() {
                     <ItemsList list={students}/>
                 </div>
                 <div className="space-y-5">
-                    <p className="text-2xl text-neutral-300">No interest:</p>
+                    <p className="text-2xl text-neutral-300">No interest({studentsNoInterest.length}):</p>
                     <div>
                    {
-                     studentsNoInterest == null &&
+                     studentsNoInterest != null &&
                         <Grid container columns={2} spacing={5} style={{width: '720px'}}>
                            
                             {
                             
                                 studentsNoInterest.map((student, index) => (
                                     <Grid key={`grid-item-${index}`} item xs={1}>
-                                        <Card title={student.name} attention={student.attention}/>
+                                        <Card title={student.name} attention={student.evaluation}/>
                                     </Grid>
                                 ))
                             }
