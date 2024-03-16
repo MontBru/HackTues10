@@ -1,1 +1,1 @@
-export const urlServer = "http://localhost:8080/" 
+export const urlServer = "http://192.168.161.150:8081/" 

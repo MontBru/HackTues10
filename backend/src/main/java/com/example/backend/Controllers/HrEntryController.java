@@ -21,6 +21,7 @@ public class HrEntryController
     @PostMapping(path = "/createEntry")
     public void createEntry(@RequestBody List<HREntryDTO> data) throws Exception {
         System.out.println(data);
+
         hrEntryService.createHrEntryWithList(data);
     }
 
