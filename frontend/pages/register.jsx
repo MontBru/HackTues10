@@ -98,20 +98,20 @@ export default function Register(){
                 klas: data.get('class'),
                 grade: data.get('grade')
             })
-            console.log({email, password, name, device_id, class_num, classs, grades})
+            console.log({email, password, name, device_id, class_num, classs, grades});
         }
         const role = isTeacher ? 0 : 1
-        const data1 = await Registration(name, email, password, class_num, device_id, classs, role)
-        sessionStorage.setItem("jwtAccess", data1.token)
-        setMe(data1.user)
-        router.push("http://localhost:3000/")
+        const data1 = await Registration(name, email, password, class_num, device_id, classs, role);
+        sessionStorage.setItem("jwtAccess", data1.token);
+        setMe(data1.user);
+        router.push("/");
     
     };
 
-    const [isTeacher, setIsTeacher] = React.useState(false)
-    const [classes, setClasses] = React.useState([])
+    const [isTeacher, setIsTeacher] = React.useState(false);
+    const [classes, setClasses] = React.useState([]);
 
-    console.log(isTeacher)
+    console.log(isTeacher);
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">

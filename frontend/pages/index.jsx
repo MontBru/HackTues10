@@ -1,4 +1,3 @@
-import { Rubik } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import LinearChart from "@/components/LinearChart";
 import DatePickerField from "@/components/DatePickerField";
@@ -12,8 +11,6 @@ import Box from "@mui/material/Box";
 import useUserStore from "@/Storages/UserStorage";
 import { getSubClassAVG } from "@/services/SubClass/SubClassAVG";
 
-const rubik = Rubik({ subsets: ["cyrillic"] });
-
 export default function Home() {
   const [clas, setClas] = useState("12 v");
   const [date, setDate] = useState("");
@@ -26,6 +23,7 @@ export default function Home() {
   const [subjects, setSubjects] = useState([]);
   const [classes, setClasses] = useState([]);
   const [classAttention, setClassAttention] = useState([]);
+  const [students, setStudents] = useState([]);
   const attentionDefaultValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const {me, setMe} = useUserStore(); 
 
@@ -65,8 +63,9 @@ export default function Home() {
       setPulseData([100, 75, 65, 90, 110, 130, 70]);
       setStudentAttentionData([5, 8, 6, 9, 7, 4, 5]);
       setSubjects(['English', "Maths", "VOT", "IOT", "Biology", "Chemistry", "History"]);
-      setClasses(["12 v", "11 V", "12 A", "10 G"]);
+      setClasses(["12 V", "11 V", "12 A", "10 G"]);
       setClassAttention([5, 0, 8, 6, 9, 7, 0, 4, 5, 0]);
+      setStudents(["Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V", "Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V"]);
     }
     fetch()
   }, []);
@@ -83,7 +82,7 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center bg-neutral-900 px-10 space-y-10 pb-20 ${rubik.className}`}
+      className={`flex min-h-screen flex-col items-center bg-neutral-900 px-10 space-y-10 pb-20`}
     >
       <Navbar isStudent={isStudent} islive={false}/>
       { isStudent ?
@@ -142,7 +141,7 @@ export default function Home() {
               </Grid>
             </div>
             <div className="flex items-center space-x-20">
-              <ItemsList list={["Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V", "Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V"]}/>
+              <ItemsList list={students}/>
               <div className="w-full">
                 <BarChart
                     title={""}
