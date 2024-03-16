@@ -2,6 +2,7 @@ package com.example.backend.Controllers;
 
 
 import com.example.backend.Classes.Subclass;
+import com.example.backend.DTO.StudentsInClassDTO;
 import com.example.backend.DTO.SubclassDTO;
 import com.example.backend.DTO.UserAttentionDTO;
 import com.example.backend.Services.SubClassService;
@@ -20,10 +21,16 @@ public class SubclassController {
 
 
     @GetMapping(path = "/subClassAVG/{klas}/{grade}/{zone}")
-    public double subClassAVG(@PathVariable String klas, @PathVariable String grade, @PathVariable String zone)
+    public int subClassAVG(@PathVariable String klas, @PathVariable String grade, @PathVariable String zone)
     {
 
         return subClassService.subClassAVG(klas, grade, zone);
+    }
+
+    @GetMapping("/getStudentsFromClass/{klas}/{grade}")
+    public List<StudentsInClassDTO>  studentsInClass(@PathVariable String klas, @PathVariable String grade)
+    {
+        return subClassService.getStudentsFromClass(klas,grade);
     }
 
     @GetMapping("/studentsWithLostAttention/{klas}/{grade}")

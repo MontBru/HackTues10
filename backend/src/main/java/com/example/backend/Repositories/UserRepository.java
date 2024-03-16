@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
@@ -18,11 +19,10 @@ import java.util.Map;
 public interface UserRepository extends JpaRepository<MyUser,Long>
 {
     @Query("SELECT AVG(hr.evaluation) FROM HrEntry hr JOIN hr.user u WHERE u.id = :id AND hr.createdAt > :date")
-    int getEvaluation(Long id, Date date);
+    int getEvaluation(Long id, LocalDateTime date);
 
-    default int getEvaluationAVGDate(Long id, LocalDate startedAt) {
-        Date date = Date.from(startedAt.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        return getEvaluation(id, date);
+    default int getEvaluationAVGDate(Long id, LocalDateTime startedAt) {
+        return getEvaluation(id, startedAt);
     }
     Optional<Object> findByEmail(String username);
 

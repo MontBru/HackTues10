@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,20 +30,24 @@ public class UserService {
             return list_of_DTO;
     }
 
-    public int getEvaluationAVG(Long id, int flag)
+    public int getEvaluationAVG(Long id,int flag)
     {
-        switch (flag)
-        {
-            case 0:
-                LocalDate date1 = LocalDate.now().minusDays(1);
-                return userRepository.getEvaluationAVGDate(id,date1);
-            case 1:
-                LocalDate date2 = LocalDate.now().minusMonths(1);
-                return userRepository.getEvaluationAVGDate(id,date2);
-            default:
-                LocalDate date3 = LocalDate.now().minusYears(1);
-                return userRepository.getEvaluationAVGDate(id,date3);
+        MyUser user = userRepository.findById(id).orElse(null);
+        if(user.getHrEntries().size() != 0 ) {
+            switch (flag) {
+                case 0:
+                    LocalDateTime date1 = LocalDateTime.now().minusDays(1);
+                    return userRepository.getEvaluationAVGDate(id, date1);
+                case 1:
+                    LocalDateTime date2 = LocalDateTime.now().minusWeeks(1);
+                    return userRepository.getEvaluationAVGDate(id, date2);
+                default:
+                    LocalDateTime date3 = LocalDateTime.now().minusMonths(1);
+                    return userRepository.getEvaluationAVGDate(id, date3);
+            }
         }
+        else
+            return 0;
     }
 
     public Optional<Object> getByEmail(String userEmail) {

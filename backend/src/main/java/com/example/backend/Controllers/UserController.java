@@ -32,7 +32,7 @@ public class UserController
     }
 
     @GetMapping("/getEvaluation/{id}/{flag}")
-    public int  getEvaluation(@PathVariable Long id, @PathVariable int flag){
+    public int  getEvaluation(@PathVariable Long id,@PathVariable int flag){
         return userService.getEvaluationAVG(id,flag);
     }
 

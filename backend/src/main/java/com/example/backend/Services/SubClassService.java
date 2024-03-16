@@ -4,6 +4,8 @@ package com.example.backend.Services;
 import com.example.backend.Classes.HrEntry;
 import com.example.backend.Classes.MyUser;
 import com.example.backend.Classes.Subclass;
+import com.example.backend.DTO.StudentsInClassDTO;
+import com.example.backend.DTO.SubAttDTO;
 import com.example.backend.DTO.SubclassDTO;
 import com.example.backend.DTO.UserAttentionDTO;
 import com.example.backend.Repositories.SubClassRepository;
@@ -28,65 +30,36 @@ public class SubClassService {
     @Autowired
     UserRepository userRepository;
 
-    public double subClassAVG(String klas, String grade, String zone){
+    public int subClassAVG(String klas, String grade, String zone){
         Subclass SubClass = subClassRepository.findByKlasAndGrade(klas, grade).orElse(null);
         LocalDateTime dateTimeLimit = LocalDateTime.now();
-        /*Calendar calendar = Calendar.getInstance();
-        if (zone.equals("month")) {
-             calendar.add(Calendar.MONTH, -1);
-        } else if (zone.equals("week")) {
-            calendar.add(Calendar.WEEK_OF_MONTH, -1);
-        } else {
-            calendar.add(Calendar.DAY_OF_WEEK, -1);
-        }*/
+        int flag = 0;
         if(zone.equals("mounth"))
         {
             dateTimeLimit = dateTimeLimit.minus(1,ChronoUnit.MONTHS);
+            flag = 2;
         }
         else if(zone.equals("week"))
         {
             dateTimeLimit = dateTimeLimit.minus(1,ChronoUnit.WEEKS);
+            flag = 1;
         }
         else
         {
             dateTimeLimit = dateTimeLimit.minus(1,ChronoUnit.DAYS);
         }
 
-        double totalEvaluation = 0;
+        int totalEvaluation = 0;
         int totalCount = 0;
-        if(SubClass != null)
+
+        List<Long> userIDs = subClassRepository.getClassAverage(klas,grade);
+        for(Long id : userIDs)
         {
-
-
-            List<MyUser> users = userRepository.findAll();
-
-            for(MyUser user : users) {
-                if(user.getClasses().contains(SubClass)) {
-                    for(HrEntry hr : user.getHrEntries()) {
-                        if(hr.getCreatedAt().isAfter(dateTimeLimit))
-                        {
-                            System.out.println("Ai me na");
-                            totalEvaluation += hr.getEvaluation();
-                            totalCount++;
-                        }
-
-                    }
-                }
-            }
-
-
+            totalEvaluation = totalEvaluation + userRepository.getEvaluation(id, dateTimeLimit);
+            totalCount++;
         }
-        if(totalCount > 0)
-        {
-            System.out.println("Hello 2.0");
-            totalEvaluation/=totalCount;
 
-        }
-        else
-        {
-            System.out.println("Hello 3.0");
-        }
-        return totalEvaluation;
+        return totalEvaluation / totalCount;
     }
 
     public Map<Integer, Double> subClassStudentsAVG(int subClassID) {
@@ -107,5 +80,11 @@ public class SubClassService {
             return null;
         }
 
+    }
+
+
+    public List<StudentsInClassDTO> getStudentsFromClass(String klas, String grade)
+    {
+        return subClassRepository.getStudentsByClass(klas, grade);
     }
 }

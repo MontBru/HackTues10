@@ -16,15 +16,14 @@ import java.util.Map;
 @Repository
 public interface SubjectRepository  extends JpaRepository<Stats, Long> {
 
-    @Query("SELECT new com.example.backend.DTO.SubjectAttentionDTO(s.name, AVG(h.evaluation), " +
-            "COLLECT_LIST(h)) " +
+    /*@Query("SELECT new com.example.backend.DTO.SubjectAttentionDTO(s.name, AVG(h.evaluation)) " +
             "FROM Subject s " +
             "JOIN s.class_subjects c " +
             "JOIN c.user_class u " +
             "JOIN u.hrEntries h " +
             "WHERE u.id = :id AND  h.createdAt > :d1 AND h.createdAt < :d2")
     List<SubjectAttentionDTO> getSubjectHREntries(@Param("id") Long id, @Param("d1") LocalDateTime d1, @Param("d2") LocalDateTime d2);
-
+*/
 
 
 

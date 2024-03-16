@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Map;
 
@@ -23,11 +24,14 @@ import java.util.Map;
 public class SubjectController {
     @Autowired SubjectServices subjectService;
 
-    @GetMapping("/getUserHREntries/{date}")
-    public List<SubjectAttentionDTO>  getHREtries(HttpServletRequest request, @PathVariable LocalDate date){
-        MyUser u = (MyUser) request.getAttribute("me");
-        return subjectService.getSubjectEntries(u.getId(),date);
-    }
+   /* @GetMapping("/getUserHREntries/{id}/{date}")
+    public List<SubjectAttentionDTO>  getHREtries(@PathVariable Long id, @PathVariable Long date){
+        LocalDateTime instant = LocalDateTime.ofEpochSecond(date/1000,0, ZoneOffset.UTC);
+        LocalDate date1 = instant.toLocalDate();
+        System.out.println(id);
+        System.out.println(date1);
+        return subjectService.getSubjectEntries(id,date1);
+    }*/
 
 
 }
