@@ -1,7 +1,8 @@
 package com.example.backend.auth;
 
 
-import com.example.backend.DTO.SubClassDTO;
+
+import com.example.backend.DTO.SubclassDTO;
 import com.example.backend.DTO.SubjectDTO;
 import io.micrometer.common.lang.NonNull;
 
@@ -37,14 +38,14 @@ public class RegisterRequest {
 
     private int number;
 
-    private List<SubClassDTO> classes;
+    private List<SubclassDTO> classes;
 
     private int role;
 
     public RegisterRequest() {
     }
 
-    public RegisterRequest(String username, String email, String password, String device_id, int number, List<SubClassDTO> classes, int role) {
+    public RegisterRequest(String username, String email, String password, String device_id, int number, List<SubclassDTO> classes, int role) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -94,11 +95,11 @@ public class RegisterRequest {
         this.number = number;
     }
 
-    public List<SubClassDTO> getClasses() {
+    public List<SubclassDTO> getClasses() {
         return classes;
     }
 
-    public void setClasses(List<SubClassDTO> classes) {
+    public void setClasses(List<SubclassDTO> classes) {
         this.classes = classes;
     }
 

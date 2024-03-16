@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Authentication from '@/services/Authentication';
 import { Router, useRouter } from 'next/router';
+import useUserStore from '@/Storages/UserStorage';
 
 const theme = createTheme({
 palette: {
@@ -59,6 +60,7 @@ palette: {
   
 
 export default function Login() {
+  const {setMe, me} = useUserStore(); 
   const router = useRouter();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -71,6 +73,9 @@ export default function Login() {
         password: data.get('password'),
       });
       sessionStorage.setItem("jwtAccess", data1.token)
+      console.log(data1)
+
+      setMe(data1.user)
       router.push("http://localhost:3000/")
     } catch (error) {
       console.error(error);

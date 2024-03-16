@@ -6,14 +6,14 @@ import React from 'react'
 
 
 
-export const Authentication = async (email, password ) => {
+export const updateHrEntry = async (value) => {
     
-    console.log("EMail: " + email)
     try {
-        const response = await axiosInstance.post(`${urlServer}auth/authentication`,{
-            email: email,
-            password: password
+        const response = await axiosInstance.get(`${urlServer}/hrEntry/studentsWithLostAttention`, {
+            klas:klas,
+            grade: grade
         })
+
         if(response !== undefined)
         {
             const data = await response.data;

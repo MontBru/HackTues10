@@ -6,23 +6,21 @@ import React from 'react'
 
 
 
-export const Authentication = async (email, password ) => {
+export const getLiveUserAttention = async (klas, grade) => {
     
-    console.log("EMail: " + email)
     try {
-        const response = await axiosInstance.post(`${urlServer}auth/authentication`,{
-            email: email,
-            password: password
-        })
+        const response = await axiosInstance.get(`${urlServer}subclass/studentsWithLostAttention/${klas}/${grade}`)
+        
         if(response !== undefined)
         {
             const data = await response.data;
             console.log(data)
+            return data;
         }
         
         
 
-        return data;
+        
     }catch(error)
     {
         throw error;

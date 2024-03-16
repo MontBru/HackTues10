@@ -4,14 +4,14 @@ public class UserDTO
 {
     private String name;
     private String email;
-    private String password;
     private String device_id;
     private int role;
 
-    public UserDTO(String name, String email, String password, String device_id, int role) {
+
+
+    public UserDTO(String name, String email, String device_id, int role) {
         this.name = name;
         this.email = email;
-        this.password = password;
         this.device_id = device_id;
         this.role = role;
     }
@@ -34,13 +34,6 @@ public class UserDTO
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getDevice_id() {
         return device_id;

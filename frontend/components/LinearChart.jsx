@@ -22,7 +22,7 @@ ChartJS.register(
     Filler
 );
 
-export default function LinearChart({title, labels, userData, yAxisText, xAxisText, stepSize}) {
+export default function LinearChart({title, labels, userData, yAxisText, xAxisText, stepSize, datasetLabel}) {
     const options = {
         responsive: true,
         interaction: {
@@ -90,7 +90,7 @@ export default function LinearChart({title, labels, userData, yAxisText, xAxisTe
             labels,
             datasets: [
                 {
-                    label: 'Heart rate',
+                    label: datasetLabel,
                     data: userData,
                     borderColor: 'rgba(244, 52, 84, 255)',
                     borderWidth: 2,

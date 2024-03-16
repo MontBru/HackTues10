@@ -9,11 +9,13 @@ import Grid from "@mui/material/Grid";
 import MetricsCard from "@/components/MetricsCard";
 import ItemsList from "@/components/ItemsList";
 import Box from "@mui/material/Box";
+import useUserStore from "@/Storages/UserStorage";
+import { getSubClassAVG } from "@/services/SubClass/SubClassAVG";
 
 const rubik = Rubik({ subsets: ["cyrillic"] });
 
 export default function Home() {
-  const [clas, setClas] = useState("");
+  const [clas, setClas] = useState("12 v");
   const [date, setDate] = useState("");
   const [metricThisMonth, setMetricThisMonth] = useState(0);
   const [metricThisWeek, setMetricThisWeek] = useState(0);
@@ -25,17 +27,48 @@ export default function Home() {
   const [classes, setClasses] = useState([]);
   const [classAttention, setClassAttention] = useState([]);
   const attentionDefaultValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const {me, setMe} = useUserStore(); 
 
   useEffect(() => {
-    setMetricThisMonth(7);
-    setMetricThisWeek(6);
-    setMetricThisDay(7);
-    setIsStudent(false);
-    setPulseData([100, 75, 65, 90, 110, 130, 70]);
-    setStudentAttentionData([5, 8, 6, 9, 7, 4, 5]);
-    setSubjects(['English', "Maths", "VOT", "IOT", "Biology", "Chemistry", "History"]);
-    setClasses(["12 v", "11 V", "12 A", "10 G"]);
-    setClassAttention([5, 0, 8, 6, 9, 7, 0, 4, 5, 0]);
+    console.log(me)
+    const fetch = async () => {
+      if(clas != null || clas != '' || clas != undefined )
+      {
+        const metricThisMonthAVG = await getSubClassAVG(clas, "month")
+        setMetricThisMonth(metricThisMonthAVG);
+        
+        const metricThisWeekAVG = await getSubClassAVG(clas, "week")
+        setMetricThisWeek(metricThisWeekAVG);
+        
+        const metricThisDayAVG = await getSubClassAVG(clas, "day")
+        setMetricThisDay(metricThisDayAVG);
+      }
+      else
+      {
+        setMetricThisMonth(0);
+        
+        setMetricThisWeek(0);
+        
+        setMetricThisDay(0);
+      }
+      
+
+      if(me.role === 0)
+      {
+        setIsStudent(false);
+      }
+      else
+      {
+        setIsStudent(true)
+      }
+      
+      setPulseData([100, 75, 65, 90, 110, 130, 70]);
+      setStudentAttentionData([5, 8, 6, 9, 7, 4, 5]);
+      setSubjects(['English', "Maths", "VOT", "IOT", "Biology", "Chemistry", "History"]);
+      setClasses(["12 v", "11 V", "12 A", "10 G"]);
+      setClassAttention([5, 0, 8, 6, 9, 7, 0, 4, 5, 0]);
+    }
+    fetch()
   }, []);
 
   if(isStudent === null){

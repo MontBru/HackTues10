@@ -1,5 +1,6 @@
 package com.example.backend.Controllers;
 
+import com.example.backend.Classes.MyUser;
 import com.example.backend.DTO.UserDTO;
 import com.example.backend.Services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,6 +46,12 @@ public class UserController
         }
 
         return "Success";
+    }
+
+    @GetMapping("/getMe")
+    public MyUser getMe(HttpServletRequest request)
+    {
+        return (MyUser) request.getAttribute("me");
     }
 
 }

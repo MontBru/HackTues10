@@ -3,6 +3,7 @@ package com.example.backend.auth;
 
 import com.example.backend.Classes.MyUser;
 import com.example.backend.Classes.Subclass;
+import com.example.backend.DTO.MyUserDTO;
 import com.example.backend.Repositories.SubClassRepository;
 import com.example.backend.Repositories.UserRepository;
 import com.example.backend.Services.SubjectServices;
@@ -48,13 +49,13 @@ public class AuthenticationService {
         List<Subclass> subclassList = request.getClasses().stream().map((c) ->{
             return subClassRepository.findByKlasAndGrade(c.getKlas(), c.getGrade()).orElse(null);
         }).toList();
-        System.out.println("alo da");
         MyUser newUser = new MyUser(request.getUsername(), request.getEmail(),
         passwordEncoder.encode(request.getPassword()), request.getDevice_id(),
                 request.getRole(), request.getNumber(), null, subclassList );
         repository.save(newUser);
         var jwtToken = jwtService.generateToken(newUser);
-        return new AuthenticationResponse(jwtToken, newUser);
+        MyUserDTO myUser = new MyUserDTO(newUser.getName(), newUser.getRole());
+        return new AuthenticationResponse(jwtToken, myUser);
     }
 
 
@@ -64,7 +65,9 @@ public class AuthenticationService {
         MyUser me = (MyUser) repository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         if(me != null && passwordEncoder.matches(request.getPassword(), me.getPassword())) {
             var jwtToken = jwtService.generateToken(me);
-            return new AuthenticationResponse(jwtToken, me);
+            MyUserDTO myUser = new MyUserDTO(me.getName(), me.getRole());
+
+            return new AuthenticationResponse(jwtToken, myUser);
         }
         else{
             throw new UsernameNotFoundException("The password is wrong");
