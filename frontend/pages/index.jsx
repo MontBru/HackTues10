@@ -10,11 +10,12 @@ import ItemsList from "@/components/ItemsList";
 import Box from "@mui/material/Box";
 import useUserStore from "@/Storages/UserStorage";
 import { getSubClassAVG } from "@/services/SubClass/SubClassAVG";
+import {getStudentsFromClass} from "@/services/SubClass/GetStudentsFromClass";
 
 export default function Home() {
   const [clas, setClas] = useState("12 v");
   const [date, setDate] = useState("");
-  const [metricThisMonth, setMetricThisMonth] = useState(0);
+  const [metricThisMonth, setMetricThisMonth] = useState(0  );
   const [metricThisWeek, setMetricThisWeek] = useState(0);
   const [metricThisDay, setMetricThisDay] = useState(0);
   const [isStudent, setIsStudent] = useState(null);
@@ -32,14 +33,19 @@ export default function Home() {
     const fetch = async () => {
       if(clas != null || clas != '' || clas != undefined )
       {
-        const metricThisMonthAVG = await getSubClassAVG(clas, "month")
-        setMetricThisMonth(metricThisMonthAVG);
-        
-        const metricThisWeekAVG = await getSubClassAVG(clas, "week")
-        setMetricThisWeek(metricThisWeekAVG);
-        
-        const metricThisDayAVG = await getSubClassAVG(clas, "day")
-        setMetricThisDay(metricThisDayAVG);
+        // const metricThisMonthAVG = await getSubClassAVG(clas, "month")
+        // setMetricThisMonth(metricThisMonthAVG);
+        //
+        // const metricThisWeekAVG = await getSubClassAVG(clas, "week")
+        // setMetricThisWeek(metricThisWeekAVG);
+        //
+        // const metricThisDayAVG = await getSubClassAVG(clas, "day")
+        // setMetricThisDay(metricThisDayAVG);
+
+        const studentsTMP = await getStudentsFromClass(clas);
+        console.log("STUDENTS!");
+        console.log(studentsTMP);
+        setStudents(studentsTMP);
       }
       else
       {
@@ -65,7 +71,7 @@ export default function Home() {
       setSubjects(['English', "Maths", "VOT", "IOT", "Biology", "Chemistry", "History"]);
       setClasses(["12 V", "11 V", "12 A", "10 G"]);
       setClassAttention([5, 0, 8, 6, 9, 7, 0, 4, 5, 0]);
-      setStudents(["Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V", "Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V"]);
+      // setStudents(["Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V", "Nikola Petrov 12V", "Ivan Postolov 12V", "Bryan Monticelli 12V", "Stefan Georgiev 11V", "Kaloyan Sotirov 12V"]);
     }
     fetch()
   }, []);
@@ -119,8 +125,8 @@ export default function Home() {
                       onChange={(event) => setClas(event.target.value)}
                   >
                     {
-                      classes.map((clas) => (
-                        <MenuItem value={clas}>{clas}</MenuItem>
+                      classes.map((clas, index) => (
+                        <MenuItem key={`menu-item-${index}`} value={clas}>{clas}</MenuItem>
                       ))
                     }
                   </Select>

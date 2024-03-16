@@ -3,11 +3,12 @@ import { urlServer } from '@/constants';
 
 
 
-export const getSubClassAVG = async (subclassID, zone) => {
+export const getStudentsFromClass = async (subclassID) => {
     try {
+        console.log("KLAS" + subclassID)
         const [klas, grade] = subclassID.split(" ")
         console.log(klas, grade)
-        const url = `${urlServer}subclass/subClassAVG/${klas}/${grade}/${zone}`;
+        const url = `${urlServer}subclass/getStudentsFromClass/${klas}/${grade}`;
         const response = await axiosInstance.get(url)
         let data = [];
         if(response !== undefined)
@@ -16,7 +17,6 @@ export const getSubClassAVG = async (subclassID, zone) => {
             console.log(data)
 
         }
-
 
         return data;
     }catch(error)
